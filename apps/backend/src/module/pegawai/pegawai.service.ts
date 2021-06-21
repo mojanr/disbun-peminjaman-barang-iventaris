@@ -39,7 +39,6 @@ export class PegawaiService extends TypeOrmCrudService<Pegawai> {
     // get current date
     const currentDate = dayjs().format('YYYY-MM-DD')
 
-
     // create
     const result = await this.pegawaiRepo.save({
       ...pegawaiPlain,

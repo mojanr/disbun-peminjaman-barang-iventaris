@@ -8,6 +8,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import { useDrawerProfile } from './drawer-profile'
+import { useHistory } from 'react-router-dom';
 
 
 const FixedSidebar = styled.div`
@@ -44,9 +45,14 @@ const FixedSidebar = styled.div`
 
 const SidebarFixed = () => {
 
+  const history = useHistory()
+
   const drawerProfile = useDrawerProfile()
 
   const openDrawerProfile = () => drawerProfile.open()
+
+  // logout button
+  const logout = () => history.push('/')
 
   return (
     <FixedSidebar>
@@ -61,7 +67,7 @@ const SidebarFixed = () => {
         <Button type="text" shape="circle" icon={<UserOutlined style={{ color: 'white' }} />} onClick={openDrawerProfile} />
       </Tooltip>
       <Tooltip title="logout" placement="right">
-        <Button type="text" shape="circle" icon={<LogoutOutlined style={{ color: 'white' }} />} />
+        <Button type="text" shape="circle" icon={<LogoutOutlined style={{ color: 'white' }} />} onClick={logout} />
       </Tooltip>
     </FixedSidebar>
   )

@@ -33,7 +33,7 @@ export class AuthService {
 
     if (isUserExist) {
       // update
-      const result = await this.userRepo.update(isUserExist.nip, {
+      const result = await this.userRepo.update(user.pegawai.peg_nip, {
         id: user.pegawai.peg_nip,
         nip: user.pegawai.peg_nip,
         nama: user.pegawai.peg_nama_lengkap,

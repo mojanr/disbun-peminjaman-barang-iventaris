@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Pegawai } from './entities/pegawai.entity'
 import { User } from './entities/user.entity';
 import { join } from 'path';
+import { Peminjaman } from './entities/peminjaman.entity';
 
 @Global()
 @Module({
@@ -31,6 +32,7 @@ import { join } from 'path';
       entities: [
         User,
         Pegawai,
+        Peminjaman
       ],
       synchronize: true,
     })

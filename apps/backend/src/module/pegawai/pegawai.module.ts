@@ -14,6 +14,7 @@ import { Pegawai } from '../../common/database/entities/pegawai.entity';
     ])
   ],
   providers: [PegawaiService],
-  controllers: [PegawaiController]
+  controllers: [PegawaiController],
+  exports: [PegawaiService]
 })
 export class PegawaiModule {}

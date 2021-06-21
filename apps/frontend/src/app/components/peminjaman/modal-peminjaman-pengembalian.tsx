@@ -12,7 +12,7 @@ import { observer } from 'mobx-react-lite'
 import { ModalUtil } from '../../util/modal.util';
 
 
-class ModalPeminjamanBaruStore extends ModalUtil {
+class ModalPeminjamanPengembalianStore extends ModalUtil {
   
   constructor() {
     super()
@@ -20,15 +20,15 @@ class ModalPeminjamanBaruStore extends ModalUtil {
 
 }
 
-const context = createContext(new ModalPeminjamanBaruStore())
-export const useModalPeminjamanBaru = () => useContext(context)
+const context = createContext(new ModalPeminjamanPengembalianStore())
+export const useModalPeminjamanPengembalian = () => useContext(context)
 
 
-const ModalPeminjamanBaru = () => {
+const ModalPeminjamanPengembalian = () => {
 
-  const modalPeminjamanBaru = useModalPeminjamanBaru()
+  const modalPeminjamanPengembalian = useModalPeminjamanPengembalian()
 
-  const onClose = () => modalPeminjamanBaru.close()
+  const onClose = () => modalPeminjamanPengembalian.close()
 
   return (
     <Modal
@@ -36,11 +36,11 @@ const ModalPeminjamanBaru = () => {
       closable={true}
       mask={true}
       onCancel={onClose}
-      visible={modalPeminjamanBaru.isOpen}
-      key="modal-peminjaman-baru"
+      visible={modalPeminjamanPengembalian.isOpen}
+      key="modal-peminjaman-pengembalian"
       footer={null}
     >
-      <HeaderComponent title="Peminjaman Baru" />
+      <HeaderComponent title="Pengembalian Barang" />
       <p>Some contents...</p>
       <p>Some contents...</p>
       <p>Some contents...</p>
@@ -48,4 +48,4 @@ const ModalPeminjamanBaru = () => {
   )
 }
 
-export default memo(observer(ModalPeminjamanBaru))
+export default memo(observer(ModalPeminjamanPengembalian))

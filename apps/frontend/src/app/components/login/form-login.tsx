@@ -1,26 +1,30 @@
 import React, { Fragment, memo } from 'react'
 import styled from 'styled-components';
-import { Card, Form, Input, Checkbox, Button, Row, Col, Typography } from 'antd'
+import { Card, Form, Input, Checkbox, Button, Row, Col, Typography, Alert } from 'antd'
 import { FormItemComponent } from '../common'
 import { UserOutlined, LockOutlined, } from '@ant-design/icons'
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+// import { Api } from '../../api/api';
+import { useRequest } from 'ahooks';
+import { AuthApi } from '../../api/auth.api';
+import { useHistory } from 'react-router-dom';
 
-const { Title } = Typography;
+// const { Title } = Typography;
 
-const StyledCard = styled(Card)`
-  &&& {
-    border-radius: 6px;
-  }
-`
+// const StyledCard = styled(Card)`
+//   &&& {
+//     border-radius: 6px;
+//   }
+// `
 
-const StyledTitle = styled(Title)`
-  &&& {
-    /* color: white; */
-    text-align: center;
-  }
-`
+// const StyledTitle = styled(Title)`
+//   &&& {
+//     /* color: white; */
+//     text-align: center;
+//   }
+// `
 
 
 interface IFormLogin {
@@ -36,12 +40,26 @@ const FormLoginSchema = yup.object().shape({
 
 const FormLogin = () => {
 
+  const history = useHistory()
+
+  const { run, data, loading, error } = useRequest(AuthApi.login, {
+    manual: true,
+    throwOnError: true,
+  })
+
   const { handleSubmit, control, formState: { errors } } = useForm<IFormLogin>({
     resolver: yupResolver(FormLoginSchema),
     mode: 'onChange'
   })
 
-  const onSubmit = (data: IFormLogin) => console.log(data)
+  const onSubmit = async (formData: IFormLogin) => {
+    try {
+      await run(formData.username, formData.password)
+      history.push('/dashboard')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Fragment>
@@ -87,29 +105,8 @@ const FormLogin = () => {
           />
         </FormItemComponent>
 
-
-        {/* <Form.Item
-          name="username"
-          rules={[{ required: true, message: 'Please input your Username!' }]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: 'Please input your Password!' }]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item> */}
-
-
         <Form.Item>
-          <Button type="primary" htmlType="submit" block className="login-form-button">
+          <Button type="primary" htmlType="submit" block className="login-form-button" loading={loading}>
             Log in
           </Button>
           {/* Or <a href="">register now!</a> */}
@@ -129,6 +126,8 @@ const FormLogin = () => {
             </Col>
           </Row>
         </Form.Item>
+
+        <p> {!loading && error && (<Alert message={error?.message} type="error" showIcon />)} </p>
       </Form>
     </Fragment>
   )

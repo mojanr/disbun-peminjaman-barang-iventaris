@@ -62,20 +62,14 @@ import { Swagger } from '@nestjsx/crud/lib/crud';
         }
       }
 
+      // return new filter
       return newFilter
-
-    //  return !newFilter['nama'] ? newFilter : {
-    //     ...search,
-    //     nama: {
-    //       $cont: newFilter['nama']
-    //     }
-    //   }
-      
     }
   }
 })
 @Controller('pegawai')
 export class PegawaiController implements CrudController<Pegawai> {
+
   constructor(public readonly service: PegawaiService) {
     const getManyBase = Swagger.getParams(this.findAll);
     const getOneBase = Swagger.getParams(this.findOne);

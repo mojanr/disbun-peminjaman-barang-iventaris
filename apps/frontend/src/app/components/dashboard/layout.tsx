@@ -19,6 +19,8 @@ import {
 import SidebarFixed from './sidebar-fixed';
 import SidebarMenu from './sidebar-menu';
 import DrawerProfile from './drawer-profile';
+import { useHistory } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 
 const { Header, Content, Footer, Sider } = AntLayout;
 const { SubMenu } = Menu;
@@ -64,6 +66,10 @@ const StyledFooter = styled(Footer)`
 `
 
 const Layout = ({ children }: any) => {
+
+  const history = useHistory()
+  const { run: runGetProfile, data: dataProfile, loading: loadingGetProfile, error: errorGetProfile} = useRequest('')
+
   return (
     <AntLayout>
       <StyledSider
