@@ -10,6 +10,7 @@ import {
 import { HeaderComponent } from '../common'
 import { observer } from 'mobx-react-lite'
 import { ModalUtil } from '../../util/modal.util';
+import FormPeminjamanUploadBast from './form-peminjaman-upload-bast';
 
 
 class ModalPeminjamanUploadBastStore extends ModalUtil {
@@ -41,9 +42,7 @@ const ModalPeminjamanUploadBast = () => {
       footer={null}
     >
       <HeaderComponent title="Upload Berita Acara Peminjaman" />
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <FormPeminjamanUploadBast />
     </Modal>
   )
 }

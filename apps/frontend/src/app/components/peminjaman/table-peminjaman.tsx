@@ -15,6 +15,11 @@ import {
   CloseCircleOutlined,
   CheckCircleOutlined
 } from '@ant-design/icons';
+import { useModalPeminjamanBaru } from './modal-peminjaman-baru';
+import { useModalPeminjamanDetail } from './modal-peminjaman-detail';
+import { useModalPeminjamanFilter } from './modal-peminjaman-filter';
+import { useModalPeminjamanPengembalian } from './modal-peminjaman-pengembalian';
+import { useModalPeminjamanUploadBast } from './modal-peminjaman-upload-bast';
 
 
 const StyledButton = styled(Button)`
@@ -25,16 +30,22 @@ const StyledButton = styled(Button)`
   }
 `
 
-const menu = (
-  <Menu>
-    <Menu.Item key="1" icon={<FileSearchOutlined style={{ color: 'blue', fontSize: 20 }} />}> Detail </Menu.Item>
-    <Menu.Item key="2" icon={<FileDoneOutlined style={{ color: 'green', fontSize: 20 }} />}> Pengembalian </Menu.Item>
-    <Menu.Item key="3" icon={<FileProtectOutlined style={{ color: 'darkorange', fontSize: 20 }} />}> Upload BAST </Menu.Item>
-  </Menu>
-);
-
 
 const TablePeminjaman = () => {
+
+  const modalPeminjamanBaru = useModalPeminjamanBaru()
+  const modalPeminjamanDetail = useModalPeminjamanDetail()
+  const modalPeminjamanFilter = useModalPeminjamanFilter()
+  const modalPeminjamanPengembalian = useModalPeminjamanPengembalian()
+  const modalPeminjamanUploadBast = useModalPeminjamanUploadBast()
+
+
+  //
+  const openModalPeminjamanBaru = () => modalPeminjamanBaru.open()
+  const openModalPeminjamanDetail = () => modalPeminjamanDetail.open()
+  const openModalPeminjamanFilter = () => modalPeminjamanFilter.open()
+  const openModalPeminjamanPengembalian = () => modalPeminjamanPengembalian.open()
+  const openModalPeminjamanUploadBast = () => modalPeminjamanUploadBast.open()
 
   const dataSource = [
     {
@@ -50,6 +61,16 @@ const TablePeminjaman = () => {
       address: '10 Downing Street',
     },
   ];
+
+
+  const actionMenu = (
+    <Menu>
+      <Menu.Item key="1" icon={<FileSearchOutlined style={{ color: 'blue', fontSize: 20 }} />} onClick={openModalPeminjamanDetail}> Detail </Menu.Item>
+      <Menu.Item key="2" icon={<FileDoneOutlined style={{ color: 'green', fontSize: 20 }} />} onClick={openModalPeminjamanPengembalian}> Pengembalian </Menu.Item>
+      <Menu.Item key="3" icon={<FileProtectOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> Upload BAST </Menu.Item>
+    </Menu>
+  );
+  
 
   const columns = [
     // {
@@ -105,7 +126,7 @@ const TablePeminjaman = () => {
         //   </Tooltip>
         // </Space>
         <div style={{ textAlign: 'center' }}>
-          <Dropdown overlay={menu} trigger={['click']}>
+          <Dropdown overlay={actionMenu} trigger={['click']}>
             {/* <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
             <EllipsisOutlined />
           </a> */}
@@ -115,6 +136,7 @@ const TablePeminjaman = () => {
       )
     },
   ];
+
 
   return (
     <Table dataSource={dataSource} columns={columns} />

@@ -9,7 +9,8 @@ import TablePeminjaman from '../components/peminjaman/table-peminjaman';
 import ModalPeminjamanDetail, { useModalPeminjamanDetail } from '../components/peminjaman/modal-peminjaman-detail';
 import ModalPeminjamanFilter, { useModalPeminjamanFilter } from '../components/peminjaman/modal-peminjaman-filter';
 import ModalPeminjamanBaru, { useModalPeminjamanBaru } from '../components/peminjaman/modal-peminjaman-baru';
-import ModalPeminjamanBast, { useModalPeminjamanUploadBast } from '../components/peminjaman/modal-peminjaman-upload-bast';
+import ModalPeminjamanUploadBast, { useModalPeminjamanUploadBast } from '../components/peminjaman/modal-peminjaman-upload-bast';
+import ModalPeminjamanPengembalian, { useModalPeminjamanPengembalian } from '../components/peminjaman/modal-peminjaman-pengembalian';
 
 const StyledPage = styled.div`
   .page {
@@ -54,7 +55,7 @@ const Peminjaman = () => {
         extra={[
           // <Button key="3">Peminjam Baru</Button>,
           <Button key="2" icon={<FilterOutlined />} onClick={openModalPeminjamanFilter}>Filter</Button>,
-          <Button key="1" type="primary" icon={<PlusOutlined />} onClick={openModalPeminjamanDetail}>
+          <Button key="1" type="primary" icon={<PlusOutlined />} onClick={openModalPeminjamanBaru}>
             Peminjam Baru
           </Button>,
         ]}
@@ -66,8 +67,14 @@ const Peminjaman = () => {
 
       {/* modal peminjaman filter */}
       <ModalPeminjamanFilter />
+      {/* modal peminjaman baru */}
+      <ModalPeminjamanBaru />
       {/* modal peminjaman detail  */}
       <ModalPeminjamanDetail />
+      {/* modal peminjaman pengembalian */}
+      <ModalPeminjamanPengembalian />
+      {/* modal peminjaman upload bast */}
+      <ModalPeminjamanUploadBast />
     </StyledPage>
   )
 }

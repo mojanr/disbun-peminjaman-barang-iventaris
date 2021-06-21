@@ -10,6 +10,7 @@ import {
 import { HeaderComponent } from '../common'
 import { observer } from 'mobx-react-lite'
 import { ModalUtil } from '../../util/modal.util';
+import FormPeminjamanBaru from './form-peminjaman-baru';
 
 
 class ModalPeminjamanBaruStore extends ModalUtil {
@@ -41,9 +42,7 @@ const ModalPeminjamanBaru = () => {
       footer={null}
     >
       <HeaderComponent title="Peminjaman Baru" />
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <FormPeminjamanBaru />
     </Modal>
   )
 }
