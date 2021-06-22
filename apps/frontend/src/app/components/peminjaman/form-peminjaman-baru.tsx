@@ -1,5 +1,5 @@
 import React, { Fragment, memo } from 'react'
-import { Select, Space, Button, Typography, Form, Input, Row, Col, DatePicker } from 'antd'
+import { Select, Space, Button, Typography, Form, Spin, Input, Row, Col, DatePicker } from 'antd'
 import { useModalPeminjamanBaru } from './modal-peminjaman-baru';
 import { useRequest } from 'ahooks';
 import * as yup from "yup";
@@ -7,6 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormItemComponent } from '../common'
 import { AuthApi } from '../../api/auth.api';
+import { Api } from '../../api/api';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker
@@ -24,7 +25,17 @@ const FormPeminjamanBaru = () => {
 
   const closeModalPeminjamanBaru = () => modalPeminjamanBaru.close()
 
-  const { run, data, loading, error } = useRequest('test', {
+  const reqPegawaiSearch = useRequest(Api.PegawaiApi.search, {
+    manual: true,
+    throwOnError: true,
+  })
+
+  const reqBarangSearch = useRequest('test', {
+    manual: true,
+    throwOnError: true,
+  })
+
+  const reqSubmitPeminjaman = useRequest('test', {
     manual: true,
     throwOnError: true,
   })
@@ -34,9 +45,25 @@ const FormPeminjamanBaru = () => {
     mode: 'onChange'
   })
 
+
+  // on search field pegawai select
+  const onSearchFieldPegawai = async (value: any) => {
+    try {
+      await reqPegawaiSearch.run(JSON.stringify({
+        peg_nip: value,
+        peg_nama: value,
+        peg_nama_lengkap: value,
+        unit_kerja_nama: value,
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // form submit
   const onSubmit = async (formData: any) => {
     try {
-      await run(formData.username, formData.password)
+      await reqSubmitPeminjaman.run(formData.username, formData.password)
       // history.push('/dashboard')
     } catch (error) {
       console.log(error)
@@ -72,16 +99,18 @@ const FormPeminjamanBaru = () => {
                 // onChange={onChange}
                 // onFocus={onFocus}
                 // onBlur={onBlur}
-                // onSearch={onSearch}
+                onSearch={onSearchFieldPegawai}
                 // filterOption={(input, option) =>
                 //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 // }
+                notFoundContent={reqPegawaiSearch.loading ? <Spin size="small" /> : null}
                 {...field}
-              >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option>
-              </Select>
+              />
+                // {/* {reqPegawaiSearch.data?.data?.message?.map((item: any, index: number) => <Option key={index} value="jack">{item.nama}</Option>)} */}
+
+                // {/* <Option value="lucy">Lucy</Option>
+                // <Option value="tom">Tom</Option> */}
+              // </Select>
             }
           />
         </FormItemComponent>
@@ -129,7 +158,7 @@ const FormPeminjamanBaru = () => {
             name="username"
             control={control}
             render={({ field }) =>
-              <RangePicker {...field} style={{ width: '100%'}} />
+              <RangePicker {...field} style={{ width: '100%' }} />
             }
           />
         </FormItemComponent>
