@@ -17,6 +17,7 @@ export class AuthJwtGuard extends AuthGuard('jwt') {
   handleRequest(err, user, info) {
     if (err || !user) {
       // throw err
+      console.log(user)
       if (err) throw err
       if (!user) throw new UnauthorizedException('Token tidak valid')
     }

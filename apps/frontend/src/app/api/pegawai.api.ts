@@ -1,46 +1,29 @@
-import axios from 'axios'
-import { ENV } from '../config/env'
+// import axios from 'axios'
+import { ApiInstance } from './api'
+// import { ENV } from '../config/env'
 
-export class Pegawai {
+export class PegawaiApi {
 
-  public static findAll() {
-    return axios.get(`${ENV.baseUrl}/pegawai`).catch((error) => {
-      return Promise.reject(error.response.data)
-    })
+  async findAll() {
+    return ApiInstance.get(`/pegawai`)
   }
 
-  public static findOne(peg_nip: string) {
-    return axios.get(`${ENV.baseUrl}/pegawai/${peg_nip}`).catch((error) => {
-      return Promise.reject(error.response.data)
-    })
+  async findOne(peg_nip: string) {
+    return ApiInstance.get(`/pegawai/${peg_nip}`)
   }
 
-  public static search(params: any) {
-    return axios.get(`${ENV.baseUrl}/pegawai`, {
+  async search(params: any) {
+    return ApiInstance.get(`/pegawai`, {
       params: params
-    }).catch((error) => {
-      return Promise.reject(error.response.data)
     })
   }
 
-  public static syncAll(token: string) {
-    return axios.patch(`${ENV.baseUrl}/pegawai/sync`, null, {
-      headers: {
-        'Authorization': `bearer ${token}`
-      }
-    }).catch((error) => {
-      return Promise.reject(error.response.data)
-    })
+  async syncAll() {
+    return ApiInstance.patch(`/pegawai/sync`)
   }
 
-  public static syncOne(peg_nip: string, token: string) {
-    return axios.patch(`${ENV.baseUrl}/pegawai/${peg_nip}`, null, {
-      headers: {
-        'Authorization': `bearer ${token}`
-      }
-    }).catch((error) => {
-      return Promise.reject(error.response.data)
-    })
+  async syncOne(peg_nip: string) {
+    return ApiInstance.patch(`/pegawai/${peg_nip}`)
   }
 
   // public static logout(token: string) {

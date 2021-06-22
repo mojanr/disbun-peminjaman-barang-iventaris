@@ -7,6 +7,7 @@ import { AuthLocalStrategy } from './auth.local.strategy';
 import { AuthJwtStrategy } from './auth.jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../database/entities/user.entity';
+import { PegawaiModule } from '../../module/pegawai/pegawai.module';
 
 @Global()
 @Module({
@@ -21,6 +22,7 @@ import { User } from '../database/entities/user.entity';
         // expiresIn: '60s'
       },
     }),
+    PegawaiModule
   ],
   providers: [AuthService, AuthLocalStrategy, AuthJwtStrategy],
   controllers: [AuthController],

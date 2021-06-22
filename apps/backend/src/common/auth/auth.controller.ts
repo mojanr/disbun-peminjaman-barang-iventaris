@@ -7,12 +7,13 @@ import { UserLogin } from './decorator/user-login.decorator';
 import { LoginDto } from './dto/login.dto';
 import { UserLoginInterface } from './interface/user-login.interface';
 import { UserJwt } from './decorator/user-jwt.decorator';
+import { PegawaiService } from '../../module/pegawai/pegawai.service';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private pegawaiService: PegawaiService) { }
 
   @UseGuards(AuthLocalGuard)
   @Post('login')
@@ -22,6 +23,7 @@ export class AuthController {
     
     // sync user
     await this.authService.syncUser(user)
+    await this.pegawaiService.sync(user.pegawai.peg_nip, user.token_siap)
     
     // set user login pegawai _id mongodb
     // user.pegawai._id = result._id

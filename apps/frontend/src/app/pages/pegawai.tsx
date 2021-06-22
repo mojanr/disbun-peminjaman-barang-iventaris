@@ -7,6 +7,8 @@ import {
   SyncOutlined
 } from '@ant-design/icons'
 import TablePegawai from '../components/pegawai/table-pegawai';
+import { useRequest } from 'ahooks';
+import { Api } from '../api/api';
 
 const StyledPage = styled.div`
   .page {
@@ -29,6 +31,30 @@ const StyledCard = styled(Card)`
 
 
 const Pegawai = () => {
+
+
+  // request api
+  const syncAllPegawaiRequest = useRequest(Api.PegawaiApi.syncAll, {
+    manual: true,
+    throwOnError: true,
+    onSuccess: (data) => {
+      console.log('data', data)
+      // Promise.resolve(data)
+    },
+    onError: (errors) => {
+      console.log('err', errors)
+    }
+  })
+
+  // sync data
+  const syncAllPegawai = async () => {
+    try {
+      await syncAllPegawaiRequest.run()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <StyledPage>
       <StyledPageHeader
@@ -38,7 +64,7 @@ const Pegawai = () => {
         title="Pegawai ASN"
         // subTitle="This is a subtitle"
         extra={[
-          <Button key="3" icon={<SyncOutlined />}>Sync</Button>,
+          <Button key="3" icon={<SyncOutlined />} onClick={syncAllPegawai}>Sync</Button>,
           <Button key="2" icon={<FilterOutlined />}>Filter</Button>,
           <Button key="1" type="primary" icon={<PlusOutlined />}>
             Pegawai

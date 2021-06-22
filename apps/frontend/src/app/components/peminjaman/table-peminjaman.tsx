@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { Table, Tag, Space, Button, Tooltip, Menu, Dropdown } from 'antd';
 import styled from 'styled-components';
 import { STYLE } from '../../config/style'
@@ -20,6 +20,8 @@ import { useModalPeminjamanDetail } from './modal-peminjaman-detail';
 import { useModalPeminjamanFilter } from './modal-peminjaman-filter';
 import { useModalPeminjamanPengembalian } from './modal-peminjaman-pengembalian';
 import { useModalPeminjamanUploadBast } from './modal-peminjaman-upload-bast';
+import { useRequest } from 'ahooks';
+import { Api } from '../../api/api';
 
 
 const StyledButton = styled(Button)`
@@ -33,6 +35,21 @@ const StyledButton = styled(Button)`
 
 const TablePeminjaman = () => {
 
+
+  // request api
+  const { run, data, loading, error } = useRequest(Api.PeminjamanApi.findAll, {
+    manual: true,
+    throwOnError: true,
+    onSuccess: (data) => {
+      console.log('data', data)
+      // Promise.resolve(data)
+    },
+    onError: (errors) => {
+      console.log('err', errors)
+    }
+  })
+
+  // modal
   const modalPeminjamanBaru = useModalPeminjamanBaru()
   const modalPeminjamanDetail = useModalPeminjamanDetail()
   const modalPeminjamanFilter = useModalPeminjamanFilter()
@@ -47,20 +64,20 @@ const TablePeminjaman = () => {
   const openModalPeminjamanPengembalian = () => modalPeminjamanPengembalian.open()
   const openModalPeminjamanUploadBast = () => modalPeminjamanUploadBast.open()
 
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street',
-    },
-  ];
+  // const dataSource = [
+  //   {
+  //     key: '1',
+  //     name: 'Mike',
+  //     age: 32,
+  //     address: '10 Downing Street',
+  //   },
+  //   {
+  //     key: '2',
+  //     name: 'John',
+  //     age: 42,
+  //     address: '10 Downing Street',
+  //   },
+  // ];
 
 
   const actionMenu = (
@@ -70,7 +87,12 @@ const TablePeminjaman = () => {
       <Menu.Item key="3" icon={<FileProtectOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> Upload BAST </Menu.Item>
     </Menu>
   );
-  
+
+  // effect
+  useEffect(() => {
+    init()
+  }, [])
+
 
   const columns = [
     // {
@@ -86,8 +108,8 @@ const TablePeminjaman = () => {
     },
     {
       title: 'Nama Peminjam',
-      dataIndex: 'nama_peminjam',
-      key: 'nama_peminjam',
+      dataIndex: 'peg_nip',
+      key: 'peg_nip',
     },
     {
       title: 'Nama Barang',
@@ -96,15 +118,30 @@ const TablePeminjaman = () => {
     },
     {
       title: 'Status Peminjaman',
-      dataIndex: 'status_peminjaman',
-      key: 'status_peminjaman',
-      render: () => (<Tag color="#f50" icon={<CloseCircleOutlined />}> Pinjam </Tag>)
+      dataIndex: 'status_pinjam',
+      key: 'status_pinjam',
+      render: (value: any) => {
+        switch (value) {
+          case 0:
+            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+          case 1:
+            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+          case 2:
+            return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Kembali </Tag>
+          default:
+            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+        }
+      }
     },
     {
       title: 'Status BAST',
-      dataIndex: 'status_bast',
-      key: 'status_bas',
-      render: () => (<Tag color="#87d068" icon={<CheckCircleOutlined />}> Tersedia </Tag>)
+      dataIndex: 'bast',
+      key: 'bast',
+      render: (value: any) => {
+        // (<Tag color="#87d068" icon={<CheckCircleOutlined />}> Sudah upload </Tag>)
+        if (value) return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Sudah upload </Tag>
+        return <Tag color="#f50" icon={<CloseCircleOutlined />}> Belum upload </Tag>
+      }
     },
     {
       title: <div style={{ textAlign: 'center' }}> Aksi </div>,
@@ -137,9 +174,17 @@ const TablePeminjaman = () => {
     },
   ];
 
+  const init = async () => {
+    try {
+      await run()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
-    <Table dataSource={dataSource} columns={columns} />
+    <Table dataSource={data?.data?.message} columns={columns} loading={loading} />
   )
 }
 

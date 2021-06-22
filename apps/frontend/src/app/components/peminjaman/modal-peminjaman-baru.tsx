@@ -40,6 +40,7 @@ const ModalPeminjamanBaru = () => {
       visible={modalPeminjamanBaru.isOpen}
       key="modal-peminjaman-baru"
       footer={null}
+      destroyOnClose
     >
       <HeaderComponent title="Peminjaman Baru" />
       <FormPeminjamanBaru />

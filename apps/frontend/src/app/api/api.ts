@@ -1,25 +1,35 @@
 import axios, { AxiosInstance } from 'axios'
-// import { createContext, useContext } from 'react'
-// import { AuthApi } from './auth.api'
+import { AuthApi } from './auth.api'
+import { PegawaiApi } from './pegawai.api'
+import { PeminjamanApi } from './peminjaman.api'
 
-export class ApiClass {
+const instance: AxiosInstance = axios.create({
+  baseURL: 'http://localhost:3333/api'
+})
 
-  instance: AxiosInstance
-  // AuthApi: AuthApi
+// axios instance setting
+instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')?.replace(/"/g, "")}`
+instance.interceptors.response.use(
+  (response) => {
+    // console.log(response)
+    return response
+  }, (error) => {
+    return Promise.reject(error.response.data)
+  })
+
+export const ApiInstance = instance
+export class Service {
+
+  AuthApi: AuthApi
+  PeminjamanApi: PeminjamanApi
+  PegawaiApi: PegawaiApi
 
   constructor() {
-    this.instance = axios.create({
-      baseURL: 'http://localhost:3333/api'
-    })
-    // this.AuthApi = new AuthApi(this)
-  }
-
-  setToken(token: any) {
-    this.instance.defaults.headers.common['Authorization'] = `bearer ${token}`
+    this.AuthApi = new AuthApi()
+    this.PeminjamanApi = new PeminjamanApi()
+    this.PegawaiApi = new PegawaiApi()
   }
 }
 
-// export const Api = new ApiClass()
+export const Api = new Service()
 
-// const context = createContext(new Api())
-// export const useApi = () => useContext(context)

@@ -86,14 +86,14 @@ export class PeminjamanController implements CrudController<Peminjaman> {
     return this;
   }
 
-  @UseInterceptors(CacheInterceptor)
+  // @UseInterceptors(CacheInterceptor)
   @Override('getManyBase')
   async findAll(@ParsedRequest() req: CrudRequest) {
     // console.log('cache')
     return this.base.getManyBase(req)
   }
 
-  @UseInterceptors(CacheInterceptor)
+  // @UseInterceptors(CacheInterceptor)
   @Override('getOneBase')
   findOne(@ParsedRequest() req: CrudRequest) {
     // console.log('cache')

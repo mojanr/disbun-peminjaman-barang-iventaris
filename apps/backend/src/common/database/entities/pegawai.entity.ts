@@ -333,7 +333,7 @@ export class Pegawai {
   id_kec: number
 
   @Expose()
-  @Column({ name: 'id_kel', nullable: true, default: null })
+  @Column({ type: "bigint", name: 'id_kel', nullable: true, default: null })
   id_kel: number
 
   @Expose()

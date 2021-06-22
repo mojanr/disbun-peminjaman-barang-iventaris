@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react'
+import React, { Fragment, memo, useEffect } from 'react'
 import styled from 'styled-components';
 import { Card, Form, Input, Checkbox, Button, Row, Col, Typography, Alert } from 'antd'
 import { FormItemComponent } from '../common'
@@ -7,8 +7,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 // import { Api } from '../../api/api';
-import { useRequest } from 'ahooks';
+import { useLocalStorageState, useRequest } from 'ahooks';
 import { AuthApi } from '../../api/auth.api';
+import { Api } from '../../api/api';
 import { useHistory } from 'react-router-dom';
 
 // const { Title } = Typography;
@@ -41,11 +42,27 @@ const FormLoginSchema = yup.object().shape({
 const FormLogin = () => {
 
   const history = useHistory()
+  const [token, setToken] = useLocalStorageState('token')
 
-  const { run, data, loading, error } = useRequest(AuthApi.login, {
+  const { run, data, loading, error } = useRequest(Api.AuthApi.login, {
     manual: true,
     throwOnError: true,
+    // onSuccess: (data) => {
+    //   console.log('data', data)
+    //   // Promise.resolve(data)
+    // },
+    // onError: (errors) => {
+    //   console.log('err', errors)
+    // }
   })
+
+  // effect response data
+  useEffect(() => {
+    if (data) {
+      // console.log(data.data.message.token_ews)
+      setToken(data.data.message.token_ews || '')
+    }
+  }, [data])
 
   const { handleSubmit, control, formState: { errors } } = useForm<IFormLogin>({
     resolver: yupResolver(FormLoginSchema),

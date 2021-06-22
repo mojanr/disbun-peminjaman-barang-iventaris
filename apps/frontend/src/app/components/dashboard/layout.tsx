@@ -68,7 +68,7 @@ const StyledFooter = styled(Footer)`
 const Layout = ({ children }: any) => {
 
   const history = useHistory()
-  const { run: runGetProfile, data: dataProfile, loading: loadingGetProfile, error: errorGetProfile} = useRequest('')
+  // const { run: runGetProfile, data: dataProfile, loading: loadingGetProfile, error: errorGetProfile} = useRequest('')
 
   return (
     <AntLayout>
