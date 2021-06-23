@@ -1,6 +1,6 @@
 import { CacheInterceptor, Controller, Get, Param, Patch, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Crud, CrudController, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
+import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { Swagger } from '@nestjsx/crud/lib/crud';
 import { Peminjaman } from '../../common/database/entities/peminjaman.entity';
 import { PeminjamanService } from './peminjaman.service';
@@ -12,7 +12,7 @@ import { PeminjamanService } from './peminjaman.service';
     type: Peminjaman
   },
   routes: {
-    only: ['getManyBase', 'getOneBase'],
+    only: ['getManyBase', 'getOneBase', 'createOneBase'],
   },
   // params: {
   //   // id: {
@@ -65,21 +65,21 @@ import { PeminjamanService } from './peminjaman.service';
 export class PeminjamanController implements CrudController<Peminjaman> {
 
   constructor(public readonly service: PeminjamanService) {
-    const getManyBase = Swagger.getParams(this.findAll);
-    const getOneBase = Swagger.getParams(this.findOne);
+    // const getManyBase = Swagger.getParams(this.findAll);
+    // const getOneBase = Swagger.getParams(this.findOne);
 
-    // remove metadata, fields, filter, or, sort, join, cache
-    const getManyBaseMetadata = getManyBase.filter(item => {
-      return !['fields', 'filter', 'or', 'sort', 'join', 'cache'].includes(item.name)
-    })
-    // remove metadata, fields, join, cache
-    const getOneBaseMetadata = getOneBase.filter(item => {
-      return !['fields', 'join', 'cache'].includes(item.name)
-    })
+    // // remove metadata, fields, filter, or, sort, join, cache
+    // const getManyBaseMetadata = getManyBase.filter(item => {
+    //   return !['fields', 'filter', 'or', 'sort', 'join', 'cache'].includes(item.name)
+    // })
+    // // remove metadata, fields, join, cache
+    // const getOneBaseMetadata = getOneBase.filter(item => {
+    //   return !['fields', 'join', 'cache'].includes(item.name)
+    // })
 
-    // set new swagger params
-    Swagger.setParams([...getManyBaseMetadata], this.findAll);
-    Swagger.setParams([...getOneBaseMetadata], this.findOne);
+    // // set new swagger params
+    // Swagger.setParams([...getManyBaseMetadata], this.findAll);
+    // Swagger.setParams([...getOneBaseMetadata], this.findOne);
   }
 
   get base(): CrudController<Peminjaman> {
@@ -99,6 +99,14 @@ export class PeminjamanController implements CrudController<Peminjaman> {
     // console.log('cache')
     return this.base.getOneBase(req)
   }
+
+  // @UseInterceptors(CacheInterceptor)
+  // @Override('createOneBase')
+  // createOne(@ParsedRequest() req: CrudRequest, @ParsedBody() dto: any) {
+  //   // console.log('cache')
+  //   console.log('dto', dto)
+  //   return this.base.createOneBase(req, dto)
+  // }
 
 
 }

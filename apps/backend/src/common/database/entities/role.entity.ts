@@ -13,6 +13,10 @@ export class Role {
   name: string
 
   // @Expose({ toPlainOnly: true })
+  @Column({ type: 'varchar', name: 'alias' })
+  alias: string
+
+  // @Expose({ toPlainOnly: true })
   @Column({ type: 'boolean', name: 'status', default: true })
   status: boolean
 

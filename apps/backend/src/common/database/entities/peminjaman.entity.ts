@@ -1,5 +1,6 @@
 import { Expose, Transform } from 'class-transformer';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne, Tree, TreeChildren, TreeParent, PrimaryColumn, ObjectIdColumn, ObjectID } from 'typeorm';
+import * as dayjs from 'dayjs'
 
 @Entity({ name: 'tr_peminjaman' })
 export class Peminjaman {
@@ -8,9 +9,19 @@ export class Peminjaman {
   // @Expose({ toPlainOnly: true })
   id: string
 
-  @Column({ type: 'varchar', name: 'peg_nip' })
+  
+  @Column({ type: 'text', name: 'peminjam' })
   // @Expose({ toPlainOnly: true })
-  peg_nip: string
+  peminjam: string
+
+  @Column({ type: 'text', name: 'barang' })
+  // @Expose({ toPlainOnly: true })
+  barang: string
+
+
+  // @Column({ type: 'varchar', name: 'peg_nip' })
+  // // @Expose({ toPlainOnly: true })
+  // peg_nip: string
 
   // @Column({ type: 'varchar', name: 'peg_nama', nullable: true, default: null })
   // peg_nama: string
@@ -49,29 +60,33 @@ export class Peminjaman {
   // @Column({ type: 'varchar', name: 'unit_kerja_nama', nullable: true, default: null })
   // unit_kerja_nama: string
 
-  @Column({ type: 'varchar', name: 'tipe_barang' })
-  // @Expose({ toPlainOnly: true })
-  tipe_barang: string
+  // @Column({ type: 'varchar', name: 'tipe_barang' })
+  // // @Expose({ toPlainOnly: true })
+  // tipe_barang: string
 
-  @Column({ type: 'varchar', name: 'tipe_barang' })
+  @Column({ type: 'text', name: 'maksud_penggunaan' })
   // @Expose({ toPlainOnly: true })
-  maksud: string
+  maksud_penggunaan: string
 
-  @Column({ type: 'varchar', name: 'supir' })
+  @Column({ type: 'varchar', name: 'sopir', nullable: true, default: null })
   // @Expose({ toPlainOnly: true })
-  supir: string
+  sopir: string
 
-  @Column({ type: 'date', name: 'tgl_pinjam' })
+  @Column({ type: 'date', name: 'tgl_penggunaan_awal' })
+  // @Expose({ toPlainOnly: true })
+  tgl_penggunaan_awal: string
+
+  @Column({ type: 'date', name: 'tgl_penggunaan_akhir' })
+  // @Expose({ toPlainOnly: true })
+  tgl_penggunaan_akhir: string
+
+  @Column({ type: 'date', name: 'tgl_pinjam', nullable: true, default: dayjs().format('YYYY-MM-DD') })
   // @Expose({ toPlainOnly: true })
   tgl_pinjam: string
 
-  @Column({ type: 'date', name: 'tgl_kembali' })
+  @Column({ type: 'date', name: 'tgl_kembali', nullable: true, default: null })
   // @Expose({ toPlainOnly: true })
   tgl_kembali: string
-
-  @Column({ type: 'smallint', name: 'status_pinjam' })
-  // @Expose({ toPlainOnly: true })
-  status_pinjam: string
 
   @Column({ type: 'varchar', name: 'bast', nullable: true, default: null })
   // @Expose({ toPlainOnly: true })

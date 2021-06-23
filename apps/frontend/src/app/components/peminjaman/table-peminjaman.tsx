@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react'
-import { Table, Tag, Space, Button, Tooltip, Menu, Dropdown } from 'antd';
+import { Table, Tag, Space, Button, Tooltip, Menu, Dropdown, Row, Col, Avatar, Typography } from 'antd';
 import styled from 'styled-components';
 import { STYLE } from '../../config/style'
 import {
@@ -23,7 +23,7 @@ import { useModalPeminjamanPengembalian } from './modal-peminjaman-pengembalian'
 import { useModalPeminjamanUploadBast } from './modal-peminjaman-upload-bast';
 import { useRequest } from 'ahooks';
 import { Api } from '../../api/api';
-
+import { ColumnsType } from 'antd/lib/table';
 
 const StyledButton = styled(Button)`
   &&&:hover,
@@ -32,6 +32,11 @@ const StyledButton = styled(Button)`
     background-color: ${STYLE.COLOR.SOFT_BLUE} !important;
   }
 `
+
+
+// data table peminjaman store
+// const 
+
 
 
 const TablePeminjaman = () => {
@@ -104,51 +109,10 @@ const TablePeminjaman = () => {
     //   render: (text, record, index) => index+1 
     // },
     {
-      title: 'Tgl Pinjam',
-      dataIndex: 'tgl_pinjam',
-      key: 'tgl_pinjam',
-    },
-    {
-      title: 'Nama Peminjam',
-      dataIndex: 'peg_nip',
-      key: 'peg_nip',
-    },
-    {
-      title: 'Nama Barang',
-      dataIndex: 'nama_barang',
-      key: 'nama_barang',
-    },
-    {
-      title: 'Status Peminjaman',
-      dataIndex: 'status_pinjam',
-      key: 'status_pinjam',
-      render: (value: any) => {
-        switch (value) {
-          case 0:
-            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
-          case 1:
-            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
-          case 2:
-            return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Kembali </Tag>
-          default:
-            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
-        }
-      }
-    },
-    {
-      title: 'Status BAST',
-      dataIndex: 'bast',
-      key: 'bast',
-      render: (value: any) => {
-        // (<Tag color="#87d068" icon={<CheckCircleOutlined />}> Sudah upload </Tag>)
-        if (value) return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Sudah upload </Tag>
-        return <Tag color="#f50" icon={<CloseCircleOutlined />}> Belum upload </Tag>
-      }
-    },
-    {
       title: <div style={{ textAlign: 'center' }}> Aksi </div>,
       key: 'aksi',
-      width: 75,
+      width: 100,
+      fixed: 'left' as 'left',
       render: () => (
         // <Space>
         //   <Tooltip title="search" placement="top">
@@ -174,6 +138,91 @@ const TablePeminjaman = () => {
         </div>
       )
     },
+    {
+      title: 'Tgl Pinjam',
+      dataIndex: 'tgl_pinjam',
+      key: 'tgl_pinjam',
+      width: 120,
+      // fixed: 'left' as 'left'
+    },
+    {
+      title: 'Peminjam',
+      dataIndex: 'peminjam',
+      key: 'peminjam',
+      width: 450,
+      // fixed: 'left' as 'left',
+      render: (value: any, record: any, index: number) => {
+        // console.log(value)
+        const peminjam = JSON.parse(value)
+
+        return (
+          <Row>
+            <Col span={4}>
+              <Avatar size={50} src={peminjam.peg_foto_url} />
+            </Col>
+            <Col span={20}>
+              <Typography.Text strong> {peminjam.peg_nama_lengkap} </Typography.Text>
+              <br></br>
+              Nip. <Typography.Text> {peminjam.peg_nip} </Typography.Text>
+            </Col>
+          </Row>
+        )
+      }
+    },
+    {
+      title: 'Barang',
+      dataIndex: 'barang',
+      key: 'barang',
+      width: 350,
+      render: (value: any, record: any, index: number) => {
+        // console.log(value)
+        const data = JSON.parse(value)
+
+        // return data.nama_barang
+        return (
+          <Row>
+            {/* <Col span={4}>
+              <Avatar size={50} src={data.peg_foto_url} />
+            </Col> */}
+            <Col span={24}>
+              <Typography.Text strong> {data.nama_barang} </Typography.Text>
+              <br></br>
+              Kode. <Typography.Text> {data.kode_barang} </Typography.Text>
+            </Col>
+          </Row>
+        )
+      }
+    },
+    {
+      title: 'Status Peminjaman',
+      dataIndex: 'status_pinjam',
+      key: 'status_pinjam',
+      // width: 30,
+      render: (value: any) => {
+        switch (value) {
+          case 0:
+            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+          case 1:
+            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+          case 2:
+            return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Kembali </Tag>
+          default:
+            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+        }
+      }
+    },
+    {
+      title: 'Status BAST',
+      dataIndex: 'bast',
+      key: 'bast',
+      // width: 50,
+      render: (value: any) => {
+        // (<Tag color="#87d068" icon={<CheckCircleOutlined />}> Sudah upload </Tag>)
+        if (value) return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Sudah upload </Tag>
+        return <Tag color="#f50" icon={<CloseCircleOutlined />}> Belum upload </Tag>
+      }
+    },
+    
   ];
 
   const init = async () => {
@@ -186,7 +235,7 @@ const TablePeminjaman = () => {
 
 
   return (
-    <Table rowKey={(record) => record.peg_nip} dataSource={data?.data?.message} columns={columns} loading={loading} />
+    <Table rowKey={(record) => record.peg_nip} dataSource={data?.data?.message} columns={columns} loading={loading} scroll={{ x: 1350 }} />
   )
 }
 
