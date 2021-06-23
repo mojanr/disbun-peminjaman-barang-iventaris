@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { createContext, memo, useContext, useEffect } from 'react'
 import { Table, Tag, Space, Button, Tooltip, Menu, Dropdown, Row, Col, Avatar, Typography } from 'antd';
 import styled from 'styled-components';
 import { STYLE } from '../../config/style'
@@ -35,8 +35,19 @@ const StyledButton = styled(Button)`
 
 
 // data table peminjaman store
-// const 
+// class peminjaman store
+class DataTablePeminjaman {
 
+  // runRequest = n
+
+  constructor() {
+
+  }
+
+
+}
+const context = createContext(new DataTablePeminjaman())
+const useDataTablePeminjaman = useContext(context)
 
 
 const TablePeminjaman = () => {
