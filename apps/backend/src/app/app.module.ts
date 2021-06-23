@@ -15,6 +15,7 @@ import { SiapJabarModule } from '../common/siap-jabar/siap-jabar.module';
 // // import { ScheduleModule } from '@nestjs/schedule';
 import { PegawaiModule } from '../module/pegawai/pegawai.module';
 import { PeminjamanModule } from '../module/peminjaman/peminjaman.module';
+import { BarangModule } from '../module/barang/barang.module';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { PeminjamanModule } from '../module/peminjaman/peminjaman.module';
     // GolonganModule, 
     PegawaiModule, 
     // PingModule,
-    PeminjamanModule
+    PeminjamanModule,
+    BarangModule
   ],
   controllers: [AppController],
   providers: [

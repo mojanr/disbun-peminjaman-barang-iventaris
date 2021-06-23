@@ -44,6 +44,7 @@
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/typeorm": "^7.1.5",
     "@nestjsx/crud": "^5.0.0-alpha.3",
+    "@nestjsx/crud-request": "^5.0.0-alpha.3",
     "@nestjsx/crud-typeorm": "^5.0.0-alpha.3",
     "@types/react-router-config": "^5.0.2",
     "ahooks": "^2.10.6",

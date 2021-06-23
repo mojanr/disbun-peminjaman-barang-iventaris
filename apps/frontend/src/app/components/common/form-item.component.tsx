@@ -8,6 +8,7 @@ interface IFieldItemComponent {
   errors: any
   children?: string | ReactNode
   isRequired?: boolean
+  className?: string
   // onReset?: () => void
 }
 
@@ -17,6 +18,7 @@ const FormItemComponent: FC<IFieldItemComponent> = (props) => {
       label={props.label && <Typography.Text strong> {props.isRequired && <span style={{ color: 'red' }}>*</span>} {props.label} </Typography.Text>}
       validateStatus={props.errors[props.name]?.message && 'error'}
       help={props.errors[props.name]?.message}
+      className={props.className}
     >
       {props.children}
     </Form.Item>

@@ -63,16 +63,19 @@ const TablePegawai = () => {
       title: 'Unit Kerja',
       dataIndex: 'unit_kerja_nama',
       key: 'unit_kerja_nama',
+      width: 450,
     },
     {
       title: 'Jabatan',
       dataIndex: 'jabatan_nama',
       key: 'jabatan_nama',
+      width: 450,
     },
     {
       title: 'Last Update',
       dataIndex: 'last_update_local',
       key: 'last_update_local',
+      width: 100,
     },
     // {
     //   title: 'NIP',
@@ -106,7 +109,7 @@ const TablePegawai = () => {
   }
 
   return (
-    <Table dataSource={data?.data?.message} columns={columns} loading={loading} size="small" pagination={false} />
+    <Table rowKey={(record) => record.peg_nip} dataSource={data?.data?.message} columns={columns} loading={loading} size="small" pagination={false} scroll={{ x: 1800 }}/>
   )
 }
 

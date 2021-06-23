@@ -13,9 +13,7 @@ export class PegawaiApi {
   }
 
   async search(params: any) {
-    return ApiInstance.get(`/pegawai`, {
-      params: params
-    })
+    return ApiInstance.get(`/pegawai?${params}`)
   }
 
   async syncAll() {

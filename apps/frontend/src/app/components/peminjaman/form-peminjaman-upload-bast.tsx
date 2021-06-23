@@ -34,13 +34,14 @@ const FormPeminjamanUploadBast = () => {
 
   return (
     <Fragment>
+      <Button type="primary" block> Download BAST </Button>
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
         <p className="ant-upload-text">Klik atau drag file kesini</p>
         <p className="ant-upload-hint">
-          Mohon upload file BAST dalam format pdf
+          Mohon upload file BAST dalam format pdf yang telah di dowload dan di tanda tangani
         </p>
       </Dragger>
 

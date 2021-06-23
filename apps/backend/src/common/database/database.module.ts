@@ -5,6 +5,7 @@ import { Pegawai } from './entities/pegawai.entity'
 import { User } from './entities/user.entity';
 import { join } from 'path';
 import { Peminjaman } from './entities/peminjaman.entity';
+import { Barang } from './entities/barang.entity';
 
 @Global()
 @Module({
@@ -32,9 +33,11 @@ import { Peminjaman } from './entities/peminjaman.entity';
       entities: [
         User,
         Pegawai,
-        Peminjaman
+        Peminjaman,
+        Barang
       ],
       synchronize: true,
+      logging: ['query']
     })
   ],
   providers: [DatabaseService]

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 import { AuthApi } from './auth.api'
+import { BarangApi } from './barang.api'
 import { PegawaiApi } from './pegawai.api'
 import { PeminjamanApi } from './peminjaman.api'
 
@@ -23,11 +24,13 @@ export class Service {
   AuthApi: AuthApi
   PeminjamanApi: PeminjamanApi
   PegawaiApi: PegawaiApi
+  BarangApi: BarangApi
 
   constructor() {
     this.AuthApi = new AuthApi()
     this.PeminjamanApi = new PeminjamanApi()
     this.PegawaiApi = new PegawaiApi()
+    this.BarangApi = new BarangApi()
   }
 }
 

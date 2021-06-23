@@ -1,21 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, CacheInterceptor } from '@nestjs/common';
-import { PegawaiService } from './pegawai.service';
-// import { CreatePegawaiDto } from './dto/create-pegawai.dto';
-// import { UpdatePegawaiDto } from './dto/update-pegawai.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
-import { Pegawai } from '../../common/database/entities/pegawai.entity';
-import { AuthJwtGuard } from '../../common/auth/auth.jwt.guard';
-import { UserLogin } from '../../common/auth/decorator/user-login.decorator';
-import { UserLoginInterface } from '../../common/auth/interface/user-login.interface';
-import { Swagger } from '@nestjsx/crud/lib/crud';
+import { Barang } from '../../common/database/entities/barang.entity';
+import { BarangService } from './barang.service';
 
-
-
-@ApiTags('pegawai')
+@ApiTags('barang')
 @Crud({
   model: {
-    type: Pegawai
+    type: Barang
   },
   routes: {
     only: ['getManyBase', 'getOneBase'],
@@ -25,8 +17,8 @@ import { Swagger } from '@nestjsx/crud/lib/crud';
     //   primary: false,
     //   disabled: true
     // },
-    peg_nip: {
-      field: 'peg_nip',
+    kode_barang: {
+      field: 'kode_barang',
       type: 'string',
       primary: true,
       disabled: false,
@@ -37,14 +29,14 @@ import { Swagger } from '@nestjsx/crud/lib/crud';
     //   // primary: false,
     //   disabled: false,
     // },
-    
+
   },
   // query: {
   //   filter: (search, getMany: boolean) => {
 
   //     // // temp new filter
   //     // let newFilter = { ...search }
-      
+
   //     // // check if property nama is in search variable,
   //     // // return nama condition with contains (LIKE query)
 
@@ -70,10 +62,10 @@ import { Swagger } from '@nestjsx/crud/lib/crud';
   //   }
   // }
 })
-@Controller('pegawai')
-export class PegawaiController implements CrudController<Pegawai> {
+@Controller('barang')
+export class BarangController implements CrudController<Barang> {
 
-  constructor(public readonly service: PegawaiService) {
+  constructor(public readonly service: BarangService) {
     // const getManyBase = Swagger.getParams(this.findAll);
     // const getOneBase = Swagger.getParams(this.findOne);
 
@@ -91,7 +83,7 @@ export class PegawaiController implements CrudController<Pegawai> {
     // Swagger.setParams([...getOneBaseMetadata], this.findOne);
   }
 
-  get base(): CrudController<Pegawai> {
+  get base(): CrudController<Barang> {
     return this;
   }
 
@@ -111,51 +103,4 @@ export class PegawaiController implements CrudController<Pegawai> {
     // console.log('cache')
     return this.base.getOneBase(req)
   }
-
-  @ApiBearerAuth()
-  @UseGuards(AuthJwtGuard)
-  @Patch('sync')
-  async syncAllPegawai(@UserLogin() user: UserLoginInterface) {
-    await this.service.syncAll(user.token_siap)
-    return {
-      result: true
-    }
-  }
-
-  @ApiBearerAuth()
-  @UseGuards(AuthJwtGuard)
-  @Patch('sync/:peg_nip')
-  async syncPegawai(@UserLogin() user: UserLoginInterface, @Param('peg_nip') peg_nip: string) {
-    console.log('ex')
-    await this.service.sync(peg_nip, user.token_siap)
-    return {
-      result: true
-    }
-  }
-  
-
-  // @Post()
-  // create(@Body() createPegawaiDto: CreatePegawaiDto) {
-  //   return this.pegawaiService.create(createPegawaiDto);
-  // }
-
-  // @Get()
-  // findAll() {
-  //   return this.pegawaiService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.pegawaiService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatePegawaiDto: UpdatePegawaiDto) {
-  //   return this.pegawaiService.update(+id, updatePegawaiDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.pegawaiService.remove(+id);
-  // }
 }

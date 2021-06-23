@@ -4,6 +4,21 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOn
 @Entity({ name: 'tm_kib_e' })
 export class KibE {
 
-  
+  @PrimaryColumn({ type: 'varchar', name: 'kode_barang' })
+  // @Expose({ toPlainOnly: true })
+  kode_barang: string
+
+  @Column({ type: 'varchar', name: 'nama_barang' })
+  // @Expose({ toPlainOnly: true })
+  nama_barang: string
+
+  @Column({ type: 'varchar', name: 'jenis_barang', nullable: true, default: null })
+  // @Expose({ toPlainOnly: true })
+  jenis_barang: string
+
+  // @Column({ type: 'varchar', name: 'golongan' })
+  // // @Expose({ toPlainOnly: true })
+  // golongan: string
+
 
 }

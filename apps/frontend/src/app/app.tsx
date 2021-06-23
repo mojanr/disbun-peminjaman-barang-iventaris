@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 // import { ReactComponent as Logo } from './logo.svg';
 // import star from './star.svg';
+import './app.css'
 import 'antd/dist/antd.css';
 
 import { Switch } from 'react-router-dom';

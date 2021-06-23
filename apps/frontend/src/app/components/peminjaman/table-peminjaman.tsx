@@ -13,7 +13,8 @@ import {
   FileProtectOutlined,
   EllipsisOutlined,
   CloseCircleOutlined,
-  CheckCircleOutlined
+  CheckCircleOutlined,
+  PrinterOutlined
 } from '@ant-design/icons';
 import { useModalPeminjamanBaru } from './modal-peminjaman-baru';
 import { useModalPeminjamanDetail } from './modal-peminjaman-detail';
@@ -84,7 +85,8 @@ const TablePeminjaman = () => {
     <Menu>
       <Menu.Item key="1" icon={<FileSearchOutlined style={{ color: 'blue', fontSize: 20 }} />} onClick={openModalPeminjamanDetail}> Detail </Menu.Item>
       <Menu.Item key="2" icon={<FileDoneOutlined style={{ color: 'green', fontSize: 20 }} />} onClick={openModalPeminjamanPengembalian}> Pengembalian </Menu.Item>
-      <Menu.Item key="3" icon={<FileProtectOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> Upload BAST </Menu.Item>
+      {/* <Menu.Item key="3" icon={<PrinterOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> Cetak BAST </Menu.Item> */}
+      <Menu.Item key="3" icon={<FileProtectOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> BAST </Menu.Item>
     </Menu>
   );
 
@@ -184,7 +186,7 @@ const TablePeminjaman = () => {
 
 
   return (
-    <Table dataSource={data?.data?.message} columns={columns} loading={loading} />
+    <Table rowKey={(record) => record.peg_nip} dataSource={data?.data?.message} columns={columns} loading={loading} />
   )
 }
 

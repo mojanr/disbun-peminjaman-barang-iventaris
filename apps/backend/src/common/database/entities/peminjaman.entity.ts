@@ -49,6 +49,18 @@ export class Peminjaman {
   // @Column({ type: 'varchar', name: 'unit_kerja_nama', nullable: true, default: null })
   // unit_kerja_nama: string
 
+  @Column({ type: 'varchar', name: 'tipe_barang' })
+  // @Expose({ toPlainOnly: true })
+  tipe_barang: string
+
+  @Column({ type: 'varchar', name: 'tipe_barang' })
+  // @Expose({ toPlainOnly: true })
+  maksud: string
+
+  @Column({ type: 'varchar', name: 'supir' })
+  // @Expose({ toPlainOnly: true })
+  supir: string
+
   @Column({ type: 'date', name: 'tgl_pinjam' })
   // @Expose({ toPlainOnly: true })
   tgl_pinjam: string
