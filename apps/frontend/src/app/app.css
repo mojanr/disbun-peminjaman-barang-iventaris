@@ -1,3 +1,7 @@
 .wrap-label .ant-form-item-label .ant-typography {
   white-space: normal !important;
 }
+
+.wrap-label {
+  white-space: normal !important;
+}

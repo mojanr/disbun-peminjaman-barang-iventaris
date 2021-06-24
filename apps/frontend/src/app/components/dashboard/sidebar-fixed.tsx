@@ -57,15 +57,15 @@ const SidebarFixed = () => {
   return (
     <FixedSidebar>
       <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>U</Avatar>
-      <Tooltip title="search" placement="right">
+      {/* <Tooltip title="search" placement="right">
         <Button type="text" shape="circle" icon={<SearchOutlined style={{ color: 'white' }} />} />
-      </Tooltip>
-      <Tooltip title="notification" placement="right">
+      </Tooltip> */}
+      {/* <Tooltip title="notification" placement="right">
         <Button type="text" shape="circle" icon={<BellOutlined style={{ color: 'white' }} />} />
       </Tooltip>
       <Tooltip title="account center" placement="right">
         <Button type="text" shape="circle" icon={<UserOutlined style={{ color: 'white' }} />} onClick={openDrawerProfile} />
-      </Tooltip>
+      </Tooltip> */}
       <Tooltip title="logout" placement="right">
         <Button type="text" shape="circle" icon={<LogoutOutlined style={{ color: 'white' }} />} onClick={logout} />
       </Tooltip>

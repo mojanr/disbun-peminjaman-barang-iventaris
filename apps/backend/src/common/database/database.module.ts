@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { join } from 'path';
 import { Peminjaman } from './entities/peminjaman.entity';
 import { Barang } from './entities/barang.entity';
+import { Role } from './entities/role.entity';
 
 @Global()
 @Module({
@@ -32,9 +33,10 @@ import { Barang } from './entities/barang.entity';
       // useUnifiedTopology: true,
       entities: [
         User,
+        Role,
         Pegawai,
         Peminjaman,
-        Barang
+        Barang,
       ],
       synchronize: true,
       logging: ['query']

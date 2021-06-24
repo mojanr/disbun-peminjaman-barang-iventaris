@@ -13,31 +13,27 @@ export class PeminjamanService extends TypeOrmCrudService<Peminjaman> {
     super(peminjamanRepo)
   }
 
-  // findAll() {
-  //   return ''
-  // }
-
-  // findOne(id) {
-  //   return ''
-  // }
-
-  // find() {
-    
-  // }
-
-  // peminjaman
-  peminjaman(user: any, nip: string, barang: string[], tgl_pinjam, tgl_estimasi_kembali, tgl_kembali) {
-
-  }
-
-  // upload dokumen berita acara
-  beritaAcara(file: any) {
-
-  }
-
   // pengembalian
-  pengembalian(id: string) {
-
+  async pengembalian(id: number) {
+    const peminjaman = await this.peminjamanRepo.findOne(id)
+    peminjaman.status_peminjaman = 2
+    return await this.peminjamanRepo.save(peminjaman)
   }
-  
+
+  // upload bast
+  uploadBast(id: string) {
+  }
+
+  // view uploaded bast
+  async viewUploadedBast(id: string) {
+    // const peminjaman = await this.peminjamanRepo.findOne(id)
+    // return await this.peminjamanRepo.save(peminjaman)
+  }
+
+  // download template bast
+  downloadTemplateBast(id: string) {
+    // console.log('cache')
+    // return this.base.getOneBase(req)
+  }
+
 }

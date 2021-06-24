@@ -23,7 +23,9 @@ import { useModalPeminjamanPengembalian } from './modal-peminjaman-pengembalian'
 import { useModalPeminjamanUploadBast } from './modal-peminjaman-upload-bast';
 import { useRequest } from 'ahooks';
 import { Api } from '../../api/api';
-import { ColumnsType } from 'antd/lib/table';
+import { AxiosResponse } from 'axios';
+import { makeAutoObservable, toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 
 const StyledButton = styled(Button)`
   &&&:hover,
@@ -33,84 +35,127 @@ const StyledButton = styled(Button)`
   }
 `
 
+// data store
+class DataTablePeminjamanStore {
 
-// data table peminjaman store
-// class peminjaman store
-class DataTablePeminjaman {
-
-  // runRequest = n
+  data: any
+  selectedData: any
 
   constructor() {
-
+    makeAutoObservable(this)
   }
 
+  setData(data: any) {
+    this.data = data
+  }
+
+  get getData() {
+    return toJS(this.data)
+  }
+
+  setSelectedData(key: string) {
+    this.selectedData = key
+  }
+
+  get getSelectedData() {
+    return this.selectedData
+  }
 
 }
-const context = createContext(new DataTablePeminjaman())
-const useDataTablePeminjaman = useContext(context)
+const context = createContext(new DataTablePeminjamanStore())
+const useDataTablePeminjamanStore = () => useContext(context)
 
-
-const TablePeminjaman = () => {
-
-
-  // request api
+// custom hooks
+export function useDataTablePeminjaman() {
+  // use data table store
+  const dataTablePeminjamanStore = useDataTablePeminjamanStore()
+  // use request api
   const { run, data, loading, error } = useRequest(Api.PeminjamanApi.findAll, {
     manual: true,
     throwOnError: true,
     onSuccess: (data) => {
       console.log('data', data)
-      // Promise.resolve(data)
+      dataTablePeminjamanStore.setData(data)
     },
     onError: (errors) => {
       console.log('err', errors)
     }
   })
 
-  // modal
-  const modalPeminjamanBaru = useModalPeminjamanBaru()
+  // run sync
+  const runSync = async () => {
+    try {
+      await run()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return {
+    runSync,
+    data,
+    loading,
+    error
+  }
+}
+
+// component
+const TablePeminjaman = () => {
+
+  const dataTablePeminjaman = useDataTablePeminjaman()
+  const dataTablePeminjamanStore = useDataTablePeminjamanStore()
+
+  // use modal
+  // const modalPeminjamanBaru = useModalPeminjamanBaru()
   const modalPeminjamanDetail = useModalPeminjamanDetail()
-  const modalPeminjamanFilter = useModalPeminjamanFilter()
+  // const modalPeminjamanFilter = useModalPeminjamanFilter()
   const modalPeminjamanPengembalian = useModalPeminjamanPengembalian()
   const modalPeminjamanUploadBast = useModalPeminjamanUploadBast()
-
-
-  //
-  const openModalPeminjamanBaru = () => modalPeminjamanBaru.open()
-  const openModalPeminjamanDetail = () => modalPeminjamanDetail.open()
-  const openModalPeminjamanFilter = () => modalPeminjamanFilter.open()
-  const openModalPeminjamanPengembalian = () => modalPeminjamanPengembalian.open()
-  const openModalPeminjamanUploadBast = () => modalPeminjamanUploadBast.open()
-
-  // const dataSource = [
-  //   {
-  //     key: '1',
-  //     name: 'Mike',
-  //     age: 32,
-  //     address: '10 Downing Street',
-  //   },
-  //   {
-  //     key: '2',
-  //     name: 'John',
-  //     age: 42,
-  //     address: '10 Downing Street',
-  //   },
-  // ];
-
-
-  const actionMenu = (
-    <Menu>
-      <Menu.Item key="1" icon={<FileSearchOutlined style={{ color: 'blue', fontSize: 20 }} />} onClick={openModalPeminjamanDetail}> Detail </Menu.Item>
-      <Menu.Item key="2" icon={<FileDoneOutlined style={{ color: 'green', fontSize: 20 }} />} onClick={openModalPeminjamanPengembalian}> Pengembalian </Menu.Item>
-      {/* <Menu.Item key="3" icon={<PrinterOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> Cetak BAST </Menu.Item> */}
-      <Menu.Item key="3" icon={<FileProtectOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> BAST </Menu.Item>
-    </Menu>
-  );
+  // use modal handler
+  // const openModalPeminjamanBaru = () => modalPeminjamanBaru.open()
+  // const openModalPeminjamanDetail = () => modalPeminjamanDetail.open()
+  // const openModalPeminjamanFilter = () => modalPeminjamanFilter.open()
+  // const openModalPeminjamanPengembalian = () => modalPeminjamanPengembalian.open()
+  // const openModalPeminjamanUploadBast = () => modalPeminjamanUploadBast.open()
 
   // effect
   useEffect(() => {
+    function init() {
+      dataTablePeminjaman.runSync()
+    }
+    // call init
     init()
   }, [])
 
+  const actionMenuClick = (e: any, id: string) => {
+    // console.log(e)
+    switch (e.key) {
+      case "1":
+        modalPeminjamanDetail.setData(id)
+        modalPeminjamanDetail.open()
+        break;
+      case "2":
+        modalPeminjamanPengembalian.setData(id)
+        modalPeminjamanPengembalian.open()
+        break;
+      case "3":
+        modalPeminjamanUploadBast.setData(id)
+        modalPeminjamanUploadBast.open()
+        break;
+      default:
+        break;
+    }
+  }
+
+  // action menu
+  const actionMenu = (id: string) => (
+    <Menu onClick={(e) => actionMenuClick(e, id)}>
+      <Menu.Item key="1" icon={<FileSearchOutlined style={{ color: 'blue', fontSize: 20 }} />} > Detail </Menu.Item>
+      <Menu.Item key="2" icon={<FileDoneOutlined style={{ color: 'green', fontSize: 20 }} />}> Pengembalian </Menu.Item>
+      {/* <Menu.Item key="3" icon={<PrinterOutlined style={{ color: 'darkorange', fontSize: 20 }} />} onClick={openModalPeminjamanUploadBast}> Cetak BAST </Menu.Item> */}
+      <Menu.Item key="3" icon={<FileProtectOutlined style={{ color: 'darkorange', fontSize: 20 }} />} > BAST </Menu.Item>
+    </Menu>
+  );
 
   const columns = [
     // {
@@ -124,26 +169,11 @@ const TablePeminjaman = () => {
       key: 'aksi',
       width: 100,
       fixed: 'left' as 'left',
-      render: () => (
-        // <Space>
-        //   <Tooltip title="search" placement="top">
-        //     <Button type="primary" shape="circle" icon={<SearchOutlined style={{ color: 'white' }} />} />
-        //   </Tooltip>
-        //   <Tooltip title="notification" placement="top">
-        //     <Button type="primary" shape="circle" icon={<BellOutlined style={{ color: 'white' }} />} />
-        //   </Tooltip>
-        //   <Tooltip title="account center" placement="top">
-        //     <Button type="primary" shape="circle" icon={<UserOutlined style={{ color: 'white' }} />} />
-        //   </Tooltip>
-        //   <Tooltip title="logout" placement="top">
-        //     <Button type="primary" shape="circle" icon={<LogoutOutlined style={{ color: 'white' }} />} />
-        //   </Tooltip>
-        // </Space>
+      render: (value: any, record: any, index: number) => (
         <div style={{ textAlign: 'center' }}>
-          <Dropdown overlay={actionMenu} trigger={['click']}>
-            {/* <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            <EllipsisOutlined />
-          </a> */}
+          <Dropdown overlay={
+            () => actionMenu(record.id)
+          } trigger={['click']}>
             <StyledButton type="text" shape="circle" icon={<EllipsisOutlined />} />
           </Dropdown>
         </div>
@@ -206,19 +236,19 @@ const TablePeminjaman = () => {
     },
     {
       title: 'Status Peminjaman',
-      dataIndex: 'status_pinjam',
-      key: 'status_pinjam',
+      dataIndex: 'status_peminjaman',
+      key: 'status_peminjaman',
       // width: 30,
       render: (value: any) => {
         switch (value) {
-          case 0:
-            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+          // case 0:
+          //   return <Tag color="#faad14" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
           case 1:
-            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
-          case 2:
-            return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Kembali </Tag>
+            return <Tag color="#faad14" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+          // case 2:
+          //   return <Tag color="#87d068" icon={<CheckCircleOutlined />}> Kembali </Tag>
           default:
-            return <Tag color="#f50" icon={<CloseCircleOutlined />}> Dipinjam </Tag>
+            return <Tag color="#87d068" icon={<CloseCircleOutlined />}> Kembali </Tag>
         }
       }
     },
@@ -233,21 +263,19 @@ const TablePeminjaman = () => {
         return <Tag color="#f50" icon={<CloseCircleOutlined />}> Belum upload </Tag>
       }
     },
-    
+
   ];
 
-  const init = async () => {
-    try {
-      await run()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
   return (
-    <Table rowKey={(record) => record.peg_nip} dataSource={data?.data?.message} columns={columns} loading={loading} scroll={{ x: 1350 }} />
+    <Table
+      rowKey={(record) => record.id}
+      // dataSource={dataTablePeminjaman.data?.data.message}
+      dataSource={dataTablePeminjamanStore.getData?.data.message}
+      columns={columns}
+      loading={dataTablePeminjaman.loading}
+      scroll={{ x: 1350 }}
+    />
   )
 }
 
-export default memo(TablePeminjaman)
+export default memo(observer(TablePeminjaman))

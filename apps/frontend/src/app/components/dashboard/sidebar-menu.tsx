@@ -65,15 +65,15 @@ const SidebarMenu = () => {
       >
         <StyledMenuItem key="1" icon={<HomeOutlined />}><Link to="/dashboard/main">Dashboard</Link></StyledMenuItem>
         <StyledMenuItem key="2" icon={<UserOutlined />}><Link to="/dashboard/user">User</Link></StyledMenuItem>
-        <StyledMenuItem key="3" icon={<ShareAltOutlined />}><Link to="/dashboard/role">Role</Link></StyledMenuItem>
+        {/* <StyledMenuItem key="3" icon={<ShareAltOutlined />}><Link to="/dashboard/role">Role</Link></StyledMenuItem> */}
         <StyledMenuItem key="4" icon={<TeamOutlined />}><Link to="/dashboard/pegawai">Pegawai</Link></StyledMenuItem>
-        <StyledSubMenu key="sub5" icon={<DropboxOutlined />} title="Barang Inventaris">
+        {/* <StyledSubMenu key="sub5" icon={<DropboxOutlined />} title="Barang Inventaris">
           <StyledMenuItem key="sub51">KIB A</StyledMenuItem>
           <StyledMenuItem key="sub52">KIB B</StyledMenuItem>
           <StyledMenuItem key="sub53">KIB C</StyledMenuItem>
           <StyledMenuItem key="sub54">KIB D</StyledMenuItem>
           <StyledMenuItem key="sub55">KIB E</StyledMenuItem>
-        </StyledSubMenu>
+        </StyledSubMenu> */}
         <StyledMenuItem key="6" icon={<FormOutlined />}><Link to="/dashboard/peminjaman">Peminjaman</Link></StyledMenuItem>
         {/* <StyledMenuItem key="7" icon={<FormOutlined />}>Pengembalian</StyledMenuItem> */}
         {/* <StyledSubMenu key="sub1" icon={<MailOutlined />} title="Dashboard">

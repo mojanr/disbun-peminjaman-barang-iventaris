@@ -20,11 +20,17 @@ export class AuthController {
   async login(@UserLogin() user: UserLoginInterface, @Body() loginData: LoginDto) {
     // console.log(req.user)
     // return 'test'
-    
+
     // sync user
     await this.authService.syncUser(user)
-    await this.pegawaiService.sync(user.pegawai.peg_nip, user.token_siap)
-    
+
+    // sync data
+    if (user.pegawai.peg_nama !== 'DINAS PERKEBUNAN') {
+      await this.pegawaiService.sync(user.pegawai.peg_nip, user.token_siap)
+    }
+
+    // console.log(user)
+
     // set user login pegawai _id mongodb
     // user.pegawai._id = result._id
 
@@ -42,7 +48,7 @@ export class AuthController {
   async logout(@UserJwt() user: UserLoginInterface) {
     try {
       // remove token
-      await this.authService.removeTokenFcm(user.pegawai.peg_nip) 
+      await this.authService.removeTokenFcm(user.pegawai.peg_nip)
       return {
         result: true
       }

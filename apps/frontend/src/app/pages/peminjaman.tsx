@@ -5,7 +5,7 @@ import {
   PlusOutlined,
   FilterOutlined
 } from '@ant-design/icons'
-import TablePeminjaman from '../components/peminjaman/table-peminjaman';
+import TablePeminjaman, { useDataTablePeminjaman } from '../components/peminjaman/table-peminjaman';
 import ModalPeminjamanDetail, { useModalPeminjamanDetail } from '../components/peminjaman/modal-peminjaman-detail';
 import ModalPeminjamanFilter, { useModalPeminjamanFilter } from '../components/peminjaman/modal-peminjaman-filter';
 import ModalPeminjamanBaru, { useModalPeminjamanBaru } from '../components/peminjaman/modal-peminjaman-baru';
@@ -34,6 +34,8 @@ const StyledCard = styled(Card)`
 
 const Peminjaman = () => {
 
+  const dataTablePeminjaman = useDataTablePeminjaman()
+
   const modalPeminjamanFilter = useModalPeminjamanFilter()
   const modalPeminjamanDetail = useModalPeminjamanDetail()
   const modalPeminjamanBaru = useModalPeminjamanBaru()
@@ -43,6 +45,10 @@ const Peminjaman = () => {
   const openModalPeminjamanDetail = () => modalPeminjamanDetail.open()
   const openModalPeminjamanBaru = () => modalPeminjamanBaru.open()
   const openModalPeminjamanUploadBast = () => modalPeminjamanUploadBast.open()
+
+  // // const reload
+  const runSync = () => dataTablePeminjaman.runSync()
+  
 
   return (
     <StyledPage>
@@ -55,6 +61,7 @@ const Peminjaman = () => {
         extra={[
           // <Button key="3">Peminjam Baru</Button>,
           <Button key="2" icon={<FilterOutlined />} onClick={openModalPeminjamanFilter}>Filter</Button>,
+          // <Button key="2" icon={<FilterOutlined />} onClick={runSync}>reload</Button>,
           <Button key="1" type="primary" icon={<PlusOutlined />} onClick={openModalPeminjamanBaru}>
             Peminjam Baru
           </Button>,

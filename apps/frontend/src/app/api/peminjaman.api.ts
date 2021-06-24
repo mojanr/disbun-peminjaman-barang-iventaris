@@ -22,7 +22,7 @@ export class PeminjamanApi {
     return ApiInstance.post(`/peminjaman`, data)
   }
 
-  async pengembalian(id: string) {
+  async pengembalian(id: number) {
     return ApiInstance.patch(`/peminjaman/pengembalian/${id}`, null)
   }
 

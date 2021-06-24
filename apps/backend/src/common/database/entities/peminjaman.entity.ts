@@ -92,5 +92,9 @@ export class Peminjaman {
   // @Expose({ toPlainOnly: true })
   bast: string
 
+  @Column({ type: 'smallint', name: 'status_peminjaman', nullable: true, default: 1 })
+  // @Expose({ toPlainOnly: true })
+  status_peminjaman: number
+
 
 }

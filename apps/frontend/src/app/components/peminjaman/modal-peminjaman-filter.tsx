@@ -33,6 +33,7 @@ const ModalPeminjamanFilter = () => {
       visible={modalPeminjamanFilter.isOpen}
       key="modal-peminjaman-filter"
       footer={null}
+      width={620}
     >
       <HeaderComponent title="Filter Pencarian Peminjaman" />
       <p>Some contents...</p>

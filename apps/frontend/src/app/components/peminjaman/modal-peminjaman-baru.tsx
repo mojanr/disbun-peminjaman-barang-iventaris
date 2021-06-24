@@ -41,6 +41,7 @@ const ModalPeminjamanBaru = () => {
       key="modal-peminjaman-baru"
       footer={null}
       destroyOnClose
+      width={620}
     >
       <HeaderComponent title="Peminjaman Baru" />
       <FormPeminjamanBaru />

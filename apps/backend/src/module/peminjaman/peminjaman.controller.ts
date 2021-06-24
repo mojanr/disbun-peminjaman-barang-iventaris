@@ -1,4 +1,4 @@
-import { CacheInterceptor, Controller, Get, Param, Patch, UseInterceptors } from '@nestjs/common';
+import { CacheInterceptor, Controller, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { Swagger } from '@nestjsx/crud/lib/crud';
@@ -98,6 +98,34 @@ export class PeminjamanController implements CrudController<Peminjaman> {
   findOne(@ParsedRequest() req: CrudRequest) {
     // console.log('cache')
     return this.base.getOneBase(req)
+  }
+
+  // pengembalian
+  @Patch('/pengembalian/:id')
+  pengembalian(@Param('id') id: number) {
+    // console.log('cache')
+    return this.service.pengembalian(id)
+  }
+
+  // upload bast
+  @Post('/bast/upload/:id')
+  uploadBast(@Param('id') id: number) {
+    // console.log('cache')
+    // return this.base.getOneBase(req)
+  }
+
+  // view uploaded bast
+  @Get('/bast/view/:id')
+  viewUploadedBast(@Param('id') id: number) {
+    // console.log('cache')
+    // return this.base.getOneBase(req)
+  }
+
+  // download template bast
+  @Get('/bast/template/:id')
+  downloadTemplateBast(@Param('id') id: number) {
+    // console.log('cache')
+    // return this.base.getOneBase(req)
   }
 
   // @UseInterceptors(CacheInterceptor)

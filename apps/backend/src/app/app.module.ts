@@ -16,6 +16,7 @@ import { SiapJabarModule } from '../common/siap-jabar/siap-jabar.module';
 import { PegawaiModule } from '../module/pegawai/pegawai.module';
 import { PeminjamanModule } from '../module/peminjaman/peminjaman.module';
 import { BarangModule } from '../module/barang/barang.module';
+import { RoleModule } from '../module/role/role.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { BarangModule } from '../module/barang/barang.module';
     PegawaiModule, 
     // PingModule,
     PeminjamanModule,
-    BarangModule
+    BarangModule,
+    RoleModule
   ],
   controllers: [AppController],
   providers: [

@@ -11,12 +11,28 @@ import { HeaderComponent } from '../common'
 import { observer } from 'mobx-react-lite'
 import { ModalUtil } from '../../util/modal.util';
 import FormPeminjamanUploadBast from './form-peminjaman-upload-bast';
+import { action, computed, makeObservable, observable } from 'mobx';
 
 
 class ModalPeminjamanUploadBastStore extends ModalUtil {
   
+  data: any
+
   constructor() {
     super()
+    makeObservable(this, {
+      data: observable,
+      setData: action,
+      getData: computed
+    })
+  }
+
+  setData(data: any) {
+    this.data = data
+  }
+
+  get getData() {
+    return this.data
   }
 
 }
@@ -40,6 +56,7 @@ const ModalPeminjamanUploadBast = () => {
       visible={modalPeminjamanUploadBast.isOpen}
       key="modal-peminjaman-upload-bast"
       footer={null}
+      width={620}
     >
       <HeaderComponent title="Upload Berita Acara Peminjaman" />
       <FormPeminjamanUploadBast />
