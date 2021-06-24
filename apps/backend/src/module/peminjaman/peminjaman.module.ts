@@ -3,6 +3,8 @@ import { PeminjamanService } from './peminjaman.service';
 import { PeminjamanController } from './peminjaman.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Peminjaman } from '../../common/database/entities/peminjaman.entity';
+import { UserModule } from '../user/user.module';
+import { AuthModule } from '../../common/auth/auth.module';
 
 @Module({
   imports: [
@@ -11,7 +13,8 @@ import { Peminjaman } from '../../common/database/entities/peminjaman.entity';
     }),
     TypeOrmModule.forFeature([
       Peminjaman
-    ])
+    ]),
+    AuthModule
   ],
   providers: [PeminjamanService],
   controllers: [PeminjamanController],

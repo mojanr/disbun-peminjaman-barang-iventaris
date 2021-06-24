@@ -31,30 +31,30 @@ const StyledCard = styled(Card)`
 `
 
 
-const Pegawai = () => {
+const Pengemudi = () => {
 
 
-  // request api
-  const syncAllPegawaiRequest = useRequest(Api.PegawaiApi.syncAll, {
-    manual: true,
-    throwOnError: true,
-    onSuccess: (data) => {
-      console.log('data', data)
-      // Promise.resolve(data)
-    },
-    onError: (errors) => {
-      console.log('err', errors)
-    }
-  })
+  // // request api
+  // const syncAllPegawaiRequest = useRequest(Api.PegawaiApi.syncAll, {
+  //   manual: true,
+  //   throwOnError: true,
+  //   onSuccess: (data) => {
+  //     console.log('data', data)
+  //     // Promise.resolve(data)
+  //   },
+  //   onError: (errors) => {
+  //     console.log('err', errors)
+  //   }
+  // })
 
-  // sync data
-  const syncAllPegawai = async () => {
-    try {
-      await syncAllPegawaiRequest.run()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // // sync data
+  // const syncAllPegawai = async () => {
+  //   try {
+  //     await syncAllPegawaiRequest.run()
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
   return (
     <StyledPage>
@@ -62,22 +62,22 @@ const Pegawai = () => {
         ghost={true}
         // onBack={() => window.history.back()}
         // onBack={() => window.history.back()}
-        title="Pegawai ASN"
+        title="Pengemudi"
         // subTitle="This is a subtitle"
         extra={[
-          <Button key="3" icon={<SyncOutlined />} onClick={syncAllPegawai}>Sync</Button>,
+          // <Button key="3" icon={<SyncOutlined />} onClick={syncAllPegawai}>Sync</Button>,
           <Button key="2" icon={<FilterOutlined />}>Filter</Button>,
           <Button key="1" type="primary" icon={<PlusOutlined />}>
-            Pegawai
+            Pengemudi
           </Button>,
         ]}
       />
 
       <StyledCard>
-        <TablePegawai />
+        {/* <TablePegawai /> */}
       </StyledCard>
     </StyledPage>
   )
 }
 
-export default Pegawai
+export default Pengemudi

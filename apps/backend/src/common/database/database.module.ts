@@ -7,6 +7,7 @@ import { join } from 'path';
 import { Peminjaman } from './entities/peminjaman.entity';
 import { Barang } from './entities/barang.entity';
 import { Role } from './entities/role.entity';
+import { Pengemudi } from './entities/pengemudi.entity';
 
 @Global()
 @Module({
@@ -37,6 +38,7 @@ import { Role } from './entities/role.entity';
         Pegawai,
         Peminjaman,
         Barang,
+        Pengemudi
       ],
       synchronize: true,
       logging: ['query']

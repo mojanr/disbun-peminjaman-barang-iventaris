@@ -15,6 +15,6 @@ import { User } from '../../common/database/entities/user.entity';
   ],
   providers: [UserService],
   controllers: [UserController],
-  exports: [User]
+  exports: [UserService]
 })
 export class UserModule {}

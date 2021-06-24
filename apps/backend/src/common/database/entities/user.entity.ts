@@ -47,6 +47,18 @@ export class User {
   // @Expose({ toPlainOnly: true })
   token_fcm: string
 
+  @Column({ type: 'varchar', name: 'role', default: null })
+  // @Expose({ toPlainOnly: true })
+  role: string
+
+  // @Column({ type: 'text', name: 'role', default: null })
+  // // @Expose({ toPlainOnly: true })
+  // role: string
+
+  // @JoinColumn({ name: 'parent_id' })
+  // @ManyToOne(() => UnitKerja, unitKerja => unitKerja.id)
+  // parent: UnitKerja
+
   // @JoinColumn({ name: 'parent_id' })
   // @ManyToOne(() => UnitKerja, unitKerja => unitKerja.id)
   // parent: UnitKerja

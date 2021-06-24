@@ -1,11 +1,13 @@
 import axios, { AxiosInstance } from 'axios'
+import { ENV } from '../config/env'
 import { AuthApi } from './auth.api'
 import { BarangApi } from './barang.api'
 import { PegawaiApi } from './pegawai.api'
 import { PeminjamanApi } from './peminjaman.api'
 
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3333/api'
+  // baseURL: 'http://localhost:3333/api'
+  baseURL: ENV.baseUrl
 })
 
 // axios instance setting

@@ -126,7 +126,7 @@ export class PegawaiController implements CrudController<Pegawai> {
   @UseGuards(AuthJwtGuard)
   @Patch('sync/:peg_nip')
   async syncPegawai(@UserLogin() user: UserLoginInterface, @Param('peg_nip') peg_nip: string) {
-    console.log('ex')
+    // console.log('ex')
     await this.service.sync(peg_nip, user.token_siap)
     return {
       result: true

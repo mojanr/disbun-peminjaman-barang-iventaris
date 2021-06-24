@@ -11,6 +11,7 @@ import ModalPeminjamanFilter, { useModalPeminjamanFilter } from '../components/p
 import ModalPeminjamanBaru, { useModalPeminjamanBaru } from '../components/peminjaman/modal-peminjaman-baru';
 import ModalPeminjamanUploadBast, { useModalPeminjamanUploadBast } from '../components/peminjaman/modal-peminjaman-upload-bast';
 import ModalPeminjamanPengembalian, { useModalPeminjamanPengembalian } from '../components/peminjaman/modal-peminjaman-pengembalian';
+import { HeaderComponent } from '../components/common'
 
 const StyledPage = styled.div`
   .page {
@@ -52,7 +53,7 @@ const Peminjaman = () => {
 
   return (
     <StyledPage>
-      <StyledPageHeader
+      <HeaderComponent
         ghost={true}
         // onBack={() => window.history.back()}
         // onBack={() => window.history.back()}

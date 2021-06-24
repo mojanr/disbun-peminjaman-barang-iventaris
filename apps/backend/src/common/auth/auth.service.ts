@@ -11,6 +11,10 @@ export class AuthService {
     @InjectRepository(User) private userRepo: Repository<User>
   ) { }
 
+  getRepo() {
+    return this.userRepo
+  }
+
   // find one
   findOne(_id: ObjectID) {
     return this.userRepo.findOneOrFail(_id)

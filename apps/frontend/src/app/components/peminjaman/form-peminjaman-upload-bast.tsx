@@ -34,7 +34,7 @@ const FormPeminjamanUploadBast = () => {
 
   return (
     <Fragment>
-      <Button type="primary" block> Download BAST </Button>
+      <Button type="primary" block target="_blank" href={`http://localhost:3333/api/peminjaman/bast/template/${modalPeminjamanUploadBast.getData}`}> Download BAST </Button>
       <Dragger {...props}>
         <p className="ant-upload-drag-icon">
           <InboxOutlined />

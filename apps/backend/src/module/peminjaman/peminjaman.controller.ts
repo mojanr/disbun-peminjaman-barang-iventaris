@@ -1,7 +1,10 @@
-import { CacheInterceptor, Controller, Get, Param, Patch, Post, UseInterceptors } from '@nestjs/common';
+import { CacheInterceptor, Controller, Get, Param, Patch, Post, Res, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { Swagger } from '@nestjsx/crud/lib/crud';
+import { Readable, PassThrough } from 'stream';
+// import { Readable } from 'node:stream';
+import { Response } from 'express'
 import { Peminjaman } from '../../common/database/entities/peminjaman.entity';
 import { PeminjamanService } from './peminjaman.service';
 
@@ -123,9 +126,50 @@ export class PeminjamanController implements CrudController<Peminjaman> {
 
   // download template bast
   @Get('/bast/template/:id')
-  downloadTemplateBast(@Param('id') id: number) {
+  async downloadTemplateBast(@Param('id') id: number, @Res() res: Response) {
     // console.log('cache')
     // return this.base.getOneBase(req)
+    const result = await this.service.downloadTemplateBast(id)
+    // console.log(result?.doc.from)
+    // return
+    // const stream = new ReadaPble()
+    // stream.push(result.doc)
+    // stream.push(null)
+
+    // const stream = new PassThrough()
+    // stream.end(result.doc)
+
+    // res.set({
+    //   'Content-Type': "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    //   'Content-disposition': 'attachment;filename=' + result.fileName,
+    //   'Content-Length': result.doc.length
+    // })
+
+    // try {
+    //   // stream.pipe(res)
+    //   // // console.log('cache')
+    //   res.setHeader('Content-Type', "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    //   res.setHeader('Content-disposition', 'attachment;filename=' + result.fileName)
+    //   res.setHeader('Content-Length', result.doc.length)
+    //   // {
+    //   //   'Content-Type': "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    //   //   'Content-disposition': 'attachment;filename=' + result.fileName,
+    //   //   'Content-Length': result.doc.length
+    //   // }
+    res.writeHead(200, {
+
+      'Content-Type': "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      'Content-disposition': 'attachment;filename=' + result.fileName,
+      'Content-Length': result.doc.length
+
+    });
+    // res.send(result.doc)
+    res.end(result.doc)
+    //   res.write(result.doc)
+    //   res.end(result.doc)
+    // } catch (error) {
+
+    // }
   }
 
   // @UseInterceptors(CacheInterceptor)

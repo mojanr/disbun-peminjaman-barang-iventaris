@@ -17,6 +17,7 @@ import { PegawaiModule } from '../module/pegawai/pegawai.module';
 import { PeminjamanModule } from '../module/peminjaman/peminjaman.module';
 import { BarangModule } from '../module/barang/barang.module';
 import { RoleModule } from '../module/role/role.module';
+import { PengemudiModule } from '../module/pengemudi/pengemudi.module';
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { RoleModule } from '../module/role/role.module';
     // PingModule,
     PeminjamanModule,
     BarangModule,
-    RoleModule
+    RoleModule,
+    PengemudiModule
   ],
   controllers: [AppController],
   providers: [
