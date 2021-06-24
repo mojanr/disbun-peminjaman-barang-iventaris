@@ -26,8 +26,8 @@ export class PeminjamanApi {
     return ApiInstance.patch(`/peminjaman/pengembalian/${id}`, null)
   }
 
-  async uploadBast(id: string) {
-    return ApiInstance.patch(`/peminjaman/bast/${id}`, null)
+  async uploadBast(id: string, data: FormData) {
+    return ApiInstance.patch(`/peminjaman/bast/upload/${id}`, data)
   }
 
   // public static logout(token: string) {

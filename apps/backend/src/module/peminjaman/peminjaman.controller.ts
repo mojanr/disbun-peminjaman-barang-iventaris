@@ -1,5 +1,8 @@
-import { CacheInterceptor, Controller, Get, Param, Patch, Post, Res, UseInterceptors } from '@nestjs/common';
+import { CacheInterceptor, Controller, Get, Param, Patch, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import * as multer from 'multer'
+import * as mime from 'mime-types'
+import { AnyFilesInterceptor, FileInterceptor, MulterModule } from '@nestjs/platform-express';
 import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { Swagger } from '@nestjsx/crud/lib/crud';
 import { Readable, PassThrough } from 'stream';
@@ -7,7 +10,8 @@ import { Readable, PassThrough } from 'stream';
 import { Response } from 'express'
 import { Peminjaman } from '../../common/database/entities/peminjaman.entity';
 import { PeminjamanService } from './peminjaman.service';
-
+import * as fs from 'fs'
+import * as path from 'path'
 
 @ApiTags('peminjaman')
 @Crud({
@@ -111,11 +115,47 @@ export class PeminjamanController implements CrudController<Peminjaman> {
   }
 
   // upload bast
-  @Post('/bast/upload/:id')
-  uploadBast(@Param('id') id: number) {
+  @Patch('/bast/upload/:id')
+  @UseInterceptors(FileInterceptor('file', {
+    storage: multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, path.resolve(__dirname, './assets/berita-acara'))
+      },
+      filename: function (req, file, cb) {
+        // console.log(file)
+        cb(null, file.fieldname +'-'+ req.params.id + '.' + mime.extension(file.mimetype))
+      }
+    }),
+    dest: path.resolve(__dirname, './assets/berita-acara')
+  }))
+  uploadBast(@Param('id') id: number, @UploadedFile() file) {
     // console.log('cache')
     // return this.base.getOneBase(req)
+    return this.service.uploadBast(id, file.filename)
   }
+
+  
+  // async createSubmissoinTypeRequirement(
+  //   @Param('submissionTypeId') submissionTypeId: number,
+  //   @Body() newSubmissionTypeRequirement: CreateSubmissionTypeRequirementDto,
+  //   @UploadedFile() file
+  // ) {
+  //   console.log(submissionTypeId, newSubmissionTypeRequirement, file)
+  //   // return submissionTypeId
+  //   // destruct
+  //   const {
+  //     name,
+  //     description,
+  //     isRequired
+  //   } = newSubmissionTypeRequirement
+
+  //   return this.submissionService.createSubmissionTypeRequirementBySubmissionTypeId(submissionTypeId, {
+  //     name: name,
+  //     description: description,
+  //     isRequired: isRequired,
+  //     template: file?.filename
+  //   })
+  // }
 
   // view uploaded bast
   @Get('/bast/view/:id')

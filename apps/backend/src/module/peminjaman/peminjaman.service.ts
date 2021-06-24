@@ -25,7 +25,11 @@ export class PeminjamanService extends TypeOrmCrudService<Peminjaman> {
   }
 
   // upload bast
-  uploadBast(id: string) {
+  async uploadBast(id: number, fileName: string) {
+    const peminjaman = await this.peminjamanRepo.findOne(id)
+    peminjaman.bast = fileName
+
+    return this.peminjamanRepo.save(peminjaman)
   }
 
   // view uploaded bast
