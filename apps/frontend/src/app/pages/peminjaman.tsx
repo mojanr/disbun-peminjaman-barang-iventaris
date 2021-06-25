@@ -61,7 +61,7 @@ const Peminjaman = () => {
         // subTitle="This is a subtitle"
         extra={[
           // <Button key="3">Peminjam Baru</Button>,
-          <Button key="2" icon={<FilterOutlined />} onClick={openModalPeminjamanFilter}>Filter</Button>,
+          // <Button key="2" icon={<FilterOutlined />} onClick={openModalPeminjamanFilter}>Filter</Button>,
           // <Button key="2" icon={<FilterOutlined />} onClick={runSync}>reload</Button>,
           <Button key="1" type="primary" icon={<PlusOutlined />} onClick={openModalPeminjamanBaru}>
             Peminjam Baru

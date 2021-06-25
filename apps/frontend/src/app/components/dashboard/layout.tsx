@@ -32,12 +32,16 @@ const StyledSider = styled(Sider)`
     left: 60px;
     min-height: 100vh;
     background-color: #e3eaf3;
+    /* background-color: rgba(209,250,229,1) !important; */
+    /* background-color: white; */
   }
 `
 
 const StyledHeader = styled(Header)`
   &&& {
+    /* background-color: #f3f5f8; */
     background-color: #f3f5f8;
+    /* background-color: rgba(209,250,229,1) !important; */
     position: fixed;
     top: 0;
     right: 0;

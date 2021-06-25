@@ -66,10 +66,10 @@ const Pegawai = () => {
         // subTitle="This is a subtitle"
         extra={[
           <Button key="3" icon={<SyncOutlined />} onClick={syncAllPegawai}>Sync</Button>,
-          <Button key="2" icon={<FilterOutlined />}>Filter</Button>,
-          <Button key="1" type="primary" icon={<PlusOutlined />}>
-            Pegawai
-          </Button>,
+          // <Button key="2" icon={<FilterOutlined />}>Filter</Button>,
+          // <Button key="1" type="primary" icon={<PlusOutlined />}>
+          //   Pegawai
+          // </Button>,
         ]}
       />
 

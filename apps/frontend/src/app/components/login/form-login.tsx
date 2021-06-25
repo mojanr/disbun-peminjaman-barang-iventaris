@@ -72,7 +72,7 @@ const FormLogin = () => {
   const onSubmit = async (formData: IFormLogin) => {
     try {
       await run(formData.username, formData.password)
-      history.push('/dashboard')
+      history.push('/dashboard/peminjaman')
     } catch (error) {
       console.log(error)
     }
@@ -129,7 +129,7 @@ const FormLogin = () => {
           {/* Or <a href="">register now!</a> */}
         </Form.Item>
 
-        <Form.Item>
+        {/* <Form.Item>
           <Row>
             <Col span={12}>
               <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -142,7 +142,7 @@ const FormLogin = () => {
               </a>
             </Col>
           </Row>
-        </Form.Item>
+        </Form.Item> */}
 
         <p> {!loading && error && (<Alert message={error?.message} type="error" showIcon />)} </p>
       </Form>

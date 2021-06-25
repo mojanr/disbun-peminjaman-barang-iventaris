@@ -19,6 +19,7 @@ const FixedSidebar = styled.div`
   height: 100vh;
   max-height: 100vh;
   background-color: #1890ff!important;
+  /* background-color: #009933!important; */
   z-index: 99;
   /* margin: 0 auto; */
   /* text-align: center; */

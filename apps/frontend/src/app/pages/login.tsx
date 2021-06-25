@@ -3,12 +3,13 @@ import { Card, Typography } from 'antd';
 import styled from 'styled-components';
 import FormLogin from '../components/login/form-login';
 import { HeaderComponent } from '../components/common'
+import logoDisbun from '../../assets/LOGO DISBUN 2.png'
 
 const StyledPage = styled.div`
   .page {
   }
 
-  background-color: #1890ff;
+  /* background-color: rgba(209,250,229, 1); */
   width: 100%;
   height: 100vh;
 `;
@@ -34,6 +35,7 @@ const Login = () => {
 
       <div style={{ padding: '50px 24px 0px 24px'}}>
         <StyledCard>
+          <img src={logoDisbun} style={{ width: 150 }} />
           <HeaderComponent title="Peminjaman Barang">
             <Typography.Text strong > Lakukan login untuk menggunakan aplikasi </Typography.Text>
           </HeaderComponent>

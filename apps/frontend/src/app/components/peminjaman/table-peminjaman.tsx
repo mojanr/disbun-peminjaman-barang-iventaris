@@ -187,6 +187,13 @@ const TablePeminjaman = () => {
       // fixed: 'left' as 'left'
     },
     {
+      title: 'Est. Tgl Kembali',
+      dataIndex: 'tgl_penggunaan_akhir',
+      key: 'tgl_penggunaan_akhir',
+      width: 120,
+      // fixed: 'left' as 'left'
+    },
+    {
       title: 'Peminjam',
       dataIndex: 'peminjam',
       key: 'peminjam',

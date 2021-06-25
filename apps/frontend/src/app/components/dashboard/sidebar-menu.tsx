@@ -13,6 +13,7 @@ import {
   FormOutlined,
   SettingOutlined
 } from '@ant-design/icons';
+import logoDisbun from '../../../assets/LOGO DISBUN 2.png'
 
 const { SubMenu } = Menu;
 
@@ -36,6 +37,7 @@ const StyledMenu = styled(Menu)`
 const StyledSubMenu = styled(SubMenu)`
   &&& {
     color: #325a80!important;
+    /* color: !important; */
     font-weight: 500;
     background-color: transparent;
 
@@ -56,16 +58,20 @@ const StyledMenuItem = styled(Menu.Item)`
 const SidebarMenu = () => {
   return (
     <StyledPage>
+
       <StyledMenu
         // onClick={this.handleClick}
         // style={{ width: 256 }}
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultSelectedKeys={['5']}
+        defaultOpenKeys={['5']}
         mode="inline"
       >
-        <StyledMenuItem key="1" icon={<HomeOutlined />}><Link to="/dashboard/main">Dashboard</Link></StyledMenuItem>
-        <StyledMenuItem key="2" icon={<UserOutlined />}><Link to="/dashboard/user">User</Link></StyledMenuItem>
-        <StyledMenuItem key="3" icon={<TeamOutlined />}><Link to="/dashboard/user">Pengemudi</Link></StyledMenuItem>
+        <div>
+          <img src={logoDisbun} style={{ width: 100, paddingLeft: 20, paddingBottom: 10 }} />
+        </div>
+        {/* <StyledMenuItem key="1" icon={<HomeOutlined />}><Link to="/dashboard/main">Dashboard</Link></StyledMenuItem> */}
+        {/* <StyledMenuItem key="2" icon={<UserOutlined />}><Link to="/dashboard/user">User</Link></StyledMenuItem> */}
+        {/* <StyledMenuItem key="3" icon={<TeamOutlined />}><Link to="/dashboard/user">Pengemudi</Link></StyledMenuItem> */}
         {/* <StyledMenuItem key="3" icon={<ShareAltOutlined />}><Link to="/dashboard/role">Role</Link></StyledMenuItem> */}
         <StyledMenuItem key="4" icon={<TeamOutlined />}><Link to="/dashboard/pegawai">Pegawai</Link></StyledMenuItem>
         {/* <StyledSubMenu key="sub5" icon={<DropboxOutlined />} title="Barang Inventaris">
