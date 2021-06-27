@@ -16,5 +16,6 @@ export class AuthLocalStrategy extends PassportStrategy(Strategy) {
   validate(username: string, password: string) {
     // return await this.authService.login({ username: username, password: password });
     return this.siapJabarAuthService.login(username, password)
+    // const user = await this.authService.getRepo().findOne(result.)
   }
 }

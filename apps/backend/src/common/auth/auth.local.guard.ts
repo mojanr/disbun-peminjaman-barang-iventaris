@@ -2,12 +2,13 @@ import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/com
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { LoginResponseInterface } from '../siap-jabar/interface/login-response.interface';
+import { AuthService } from './auth.service';
 import { UserLoginInterface } from './interface/user-login.interface';
 
 @Injectable()
 export class AuthLocalGuard extends AuthGuard('local') {
 
-  constructor(private jwtService: JwtService) {
+  constructor(private jwtService: JwtService, private authService: AuthService) {
     super()
   }
 
@@ -25,6 +26,7 @@ export class AuthLocalGuard extends AuthGuard('local') {
     }
 
     const userLogin: LoginResponseInterface = user
+
 
     // return data
     const userInfo: UserLoginInterface = {

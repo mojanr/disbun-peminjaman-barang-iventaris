@@ -369,7 +369,7 @@ const FormPeminjamanBaru = () => {
         {/* sopir jika barang adalah kendaraan  */}
         {fieldWatchBarang && JSON.parse(fieldWatchBarang)['no_polisi'] && (
           < FormItemComponent
-            label="Nama sopir"
+            label="Nama pengemudi"
             name="sopir"
             isRequired
             errors={errors}
@@ -380,7 +380,7 @@ const FormPeminjamanBaru = () => {
               render={({ field }) =>
                 <Input
                   // prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Nama sopir"
+                  placeholder="Nama pengemudi"
                   {...field}
                 />
               }

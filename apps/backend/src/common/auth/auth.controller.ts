@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req, Request, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthLocalGuard } from './auth.local.guard';
 import { AuthJwtGuard } from './auth.jwt.guard';
@@ -28,6 +28,12 @@ export class AuthController {
     if (user.pegawai.peg_nama !== 'DINAS PERKEBUNAN') {
       await this.pegawaiService.sync(user.pegawai.peg_nip, user.token_siap)
     }
+
+    // check if user is has access
+    const authUser = await this.authService.getRepo().findOne(user.pegawai.peg_nip)
+    if (!authUser) throw new UnauthorizedException()
+    if (authUser.role !== 'user') throw new UnauthorizedException()
+
 
     // console.log(user)
 
