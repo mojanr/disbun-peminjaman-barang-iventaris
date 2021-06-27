@@ -13,6 +13,7 @@ import { ModalUtil } from '../../util/modal.util';
 import { useRequest } from 'ahooks';
 import { Api } from '../../api/api';
 import { action, computed, makeObservable, observable } from 'mobx';
+import { ENV } from '../../config/env';
 
 
 class ModalPeminjamanDetailStore extends ModalUtil {
@@ -202,7 +203,15 @@ const ModalPeminjamanDetail = () => {
             </Descriptions.Item>
           )}
           <Descriptions.Item label="BAST">
-            {reqBarangDetail.data?.data.message.bast ? <Badge status='success' text="Sudah upload" /> : <Badge status='error' text="Belum upload" />}
+            {reqBarangDetail.data?.data.message.bast ?
+              (
+                <Fragment>
+                  <Badge status='success' text="Sudah upload" />
+                  <a href={`${ENV.baseUrl}/peminjaman/bast/view/${reqBarangDetail.data?.data.message.bast}`} target="_blank"> BAST </a>
+                </Fragment>
+              ) :
+              <Badge status='error' text="Belum upload" />
+            }
           </Descriptions.Item>
           <Descriptions.Item label="Status Peminjaman">
             {reqBarangDetail.data?.data.message.status_peminjaman == 1 ? <Badge status='warning' text="Dipinjam" /> : <Badge status='success' text="Dikembalikan" />}

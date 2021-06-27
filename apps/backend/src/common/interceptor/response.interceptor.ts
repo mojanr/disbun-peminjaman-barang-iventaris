@@ -43,7 +43,7 @@ export class ResponseInterceptor implements NestInterceptor {
               statusCode: HttpStatus.OK,
               message: data,
             }, HttpStatus.OK)
-          } else {
+          } else if (typeof data === 'object' && data !== null) {
             // data is not array, check if null or undefined or object key is empty
             if (!data) throw new NotFoundException()
             if (Object.keys(data).length == 0) throw new NotFoundException()
@@ -52,6 +52,8 @@ export class ResponseInterceptor implements NestInterceptor {
               statusCode: HttpStatus.OK,
               message: data,
             }, HttpStatus.OK)
+          } else {
+            return data
           }
         },
         // error: (err) => {

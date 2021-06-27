@@ -140,6 +140,7 @@ const TablePeminjaman = () => {
         break;
       case "3":
         modalPeminjamanUploadBast.setData(id)
+        // console.log(id)
         modalPeminjamanUploadBast.open()
         break;
       default:

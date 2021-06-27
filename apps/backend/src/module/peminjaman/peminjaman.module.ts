@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Peminjaman } from '../../common/database/entities/peminjaman.entity';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../../common/auth/auth.module';
+import { PegawaiModule } from '../pegawai/pegawai.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { AuthModule } from '../../common/auth/auth.module';
     TypeOrmModule.forFeature([
       Peminjaman
     ]),
-    AuthModule
+    AuthModule,
+    PegawaiModule
   ],
   providers: [PeminjamanService],
   controllers: [PeminjamanController],

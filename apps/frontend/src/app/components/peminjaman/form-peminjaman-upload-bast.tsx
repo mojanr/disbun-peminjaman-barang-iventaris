@@ -1,4 +1,4 @@
-import React, { FC, Fragment, memo, useState } from 'react'
+import React, { FC, Fragment, memo, useEffect, useState } from 'react'
 import { Upload, message, Space, Button } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { useModalPeminjamanUploadBast } from './modal-peminjaman-upload-bast';
@@ -9,6 +9,7 @@ import { FormItemComponent } from '../common'
 import { useRequest } from 'ahooks';
 import { Api } from '../../api/api';
 import { useDataTablePeminjaman } from './table-peminjaman';
+import { ENV } from '../../config/env';
 
 const { Dragger } = Upload;
 
@@ -20,10 +21,13 @@ const FormPeminjamanUploadBastSchema = yup.object().shape({
 const FormPeminjamanUploadBast = () => {
 
   const [fileList, setFileList] = useState<any>([])
+  const [peminjamanId, setPeminjamanId] = useState()
   // use data table peminjaman
   const dataTablePeminjaman = useDataTablePeminjaman()
 
   const modalPeminjamanUploadBast = useModalPeminjamanUploadBast()
+
+  
 
   const closeModalPeminjamanUploadBast = () => modalPeminjamanUploadBast.close()
 
@@ -102,9 +106,13 @@ const FormPeminjamanUploadBast = () => {
 
   }
 
+  useEffect(() => {
+    setPeminjamanId(modalPeminjamanUploadBast.getData)
+  }, [modalPeminjamanUploadBast.getData])
+
   return (
     <Fragment>
-      <Button type="primary" block target="_blank" href={`http://localhost:3333/api/peminjaman/bast/template/${modalPeminjamanUploadBast.getData}`}> Download BAST </Button>
+      <Button type="primary" block target="_blank" href={`${ENV.baseUrl}/peminjaman/bast/template/${peminjamanId}`}> Download BAST </Button>
 
 
       <FormItemComponent

@@ -13,6 +13,7 @@ export interface TemplateBeritaAcaraPeminjaman {
   peminjam_peg_foto_url: string
   peminjam_jabatan_nama: string
   peminjam_unit_kerja_nama: string
+  peminjam_no_hp?: string
   // peminjam: {
   //   peg_id: string
   //   peg_nip: string

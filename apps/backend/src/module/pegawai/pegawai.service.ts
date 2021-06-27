@@ -19,6 +19,9 @@ export class PegawaiService extends TypeOrmCrudService<Pegawai> {
     super(pegawaiRepo)
   }
 
+  getRepo() {
+    return this.pegawaiRepo
+  }
 
   async sync(nip: string, tokenSiap: string) {
     // get pegawai from siap jabar

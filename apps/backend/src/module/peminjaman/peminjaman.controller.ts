@@ -1,4 +1,4 @@
-import { CacheInterceptor, Controller, Get, Param, Patch, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { CacheInterceptor, Controller, Get, Header, HttpCode, HttpStatus, Param, Patch, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import * as multer from 'multer'
 import * as mime from 'mime-types'
@@ -122,8 +122,9 @@ export class PeminjamanController implements CrudController<Peminjaman> {
         cb(null, path.resolve(__dirname, './assets/berita-acara'))
       },
       filename: function (req, file, cb) {
-        // console.log(file)
-        cb(null, file.fieldname +'-'+ req.params.id + '.' + mime.extension(file.mimetype))
+        console.log(file)
+        cb(null, file.fieldname + '-' + req.params.id + '.' + mime.extension(file.mimetype))
+        // cb(null, file.originalname)
       }
     }),
     dest: path.resolve(__dirname, './assets/berita-acara')
@@ -134,7 +135,7 @@ export class PeminjamanController implements CrudController<Peminjaman> {
     return this.service.uploadBast(id, file.filename)
   }
 
-  
+
   // async createSubmissoinTypeRequirement(
   //   @Param('submissionTypeId') submissionTypeId: number,
   //   @Body() newSubmissionTypeRequirement: CreateSubmissionTypeRequirementDto,
@@ -158,10 +159,95 @@ export class PeminjamanController implements CrudController<Peminjaman> {
   // }
 
   // view uploaded bast
-  @Get('/bast/view/:id')
-  viewUploadedBast(@Param('id') id: number) {
+  @Get('/bast/view/:docName')
+  // @HttpCode(HttpStatus.OK)
+  // @Header('Content-Type', 'application/pdf')
+  // @Header('Content-Disposition', 'attachment; filename=test.pdf')
+  async viewUploadedBast(@Param('docName') docName: string, @Res() res) {
+    const filePath = path.join(__dirname, `/assets/berita-acara`, '/', docName)
+
+    // res.download(filePath, docName);  
+
+    // var mimetype = mime.lookup(filePath);
+
+    // res.setHeader('Content-disposition', 'attachment; filename=' + docName);
+    // res.setHeader('Content-type', mimetype);
+
+    // var filestream = fs.createReadStream(filePath);
+    // var stat = fs.statSync(filePath)
+
+    // res.setHeader('Content-Length', stat.size);
+    // res.setHeader('Content-Type', 'application/pdf');
+    // res.setHeader('Content-Disposition', 'attachment; filename=' + docName);
+    // filestream.pipe(res);
+
+    // const pdf = await new Promise<Buffer>((resolve, reject) => {
+    //   fs.readFile(filePath, {}, (err, data) => {
+    //     if (err) {
+    //       console.log('error', err)
+    //       reject(err)
+    //     }
+    //     else {
+    //       console.log('data', data)
+    //       resolve(data)
+    //     }
+    //   })
+    // })
+
+    // // console.log(pdf)
+
+    // res.writeHead(200, {
+
+    //   'Content-Type': "application/pdf",
+    //   'Content-disposition': 'attachment;filename=' + docName,
+    //   // 'Content-disposition': 'attachment',
+    //   'Content-Length': pdf.length
+
+    // });
+    // // res.send(result.doc)
+    // res.end(pdf)
+    //   res.write(result.doc)
+    //   res.end(result.doc)
+    // } catch (error) {
+
+    // }
+
+
+    // return res.sendFile(docName, { root: './dist/apps/backend/assets/berita-acara' });
     // console.log('cache')
     // return this.base.getOneBase(req)
+    // console.log(docName)
+    // console.log(path.join(__dirname, `/assets/berita-acara`))
+    return res.sendFile(docName, {
+      root: path.join(__dirname, `/assets/berita-acara`),
+      // root: `./dist/apps/backend/assets/berita-acara`,
+      headers: {
+        'Content-type': 'application/pdf',
+        'Content-disposition': 'inline; filename="' + docName + '"'
+      }
+    }, (err) => console.log('error', err));
+
+    // ret
+
+    // res.download(filePath, docName, (error) => console.log(error))
+    // console.log(path.join(__dirname, '/assets/berita-acara'))
+    // console.log(data)
+
+    // return data
+
+    // res.sendFile(path.join(__dirname, `/assets/berita-acara/${docName}`), null, () => {
+    //   res.end()
+    // })
+
+    // // return res.download(path.join(__dirname, `/assets/berita-acara`, '/', docName), docName, (err) => console.log(err))
+    // const filePath = path.join(__dirname, `/assets/berita-acara`, '/', docName)
+    // // console.log(filePath)
+    // // res.status(200).sendFile(filePath)
+    // // res.status(200).sendFile(`./assets/berita-acara/${docName}`)
+    // // const file = fs.createReadStream(filePath);
+    // // file.pipe(res)
+
+    // return fs.createReadStream(filePath);
   }
 
   // download template bast

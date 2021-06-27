@@ -76,7 +76,8 @@ const FormPeminjamanBaru = () => {
           "peg_nama_lengkap",
           "jabatan_nama",
           "peg_foto_url",
-          "unit_kerja_nama"
+          "unit_kerja_nama",
+          "peg_telp_hp"
         ],
         or: [
           {
