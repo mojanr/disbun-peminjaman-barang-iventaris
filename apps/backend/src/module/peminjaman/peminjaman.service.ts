@@ -26,6 +26,7 @@ export class PeminjamanService extends TypeOrmCrudService<Peminjaman> {
   async pengembalian(id: number) {
     const peminjaman = await this.peminjamanRepo.findOne(id)
     peminjaman.status_peminjaman = 2
+    peminjaman.tgl_kembali = dayjs().format('YYYY-MM-DD')
     return await this.peminjamanRepo.save(peminjaman)
   }
 
@@ -52,6 +53,7 @@ export class PeminjamanService extends TypeOrmCrudService<Peminjaman> {
     // serialize
     const peminjam = JSON.parse(resultPeminjaman.peminjam)
     const barang = JSON.parse(resultPeminjaman.barang)
+    const pengemudi = JSON.parse(resultPeminjaman.sopir)
 
     const userPengelolaBarang = await this.authService.getRepo().findOne({
       where: {
@@ -82,7 +84,8 @@ export class PeminjamanService extends TypeOrmCrudService<Peminjaman> {
       barang_alamat: barang.alamat,
       barang_luas: barang.luas,
       maksud_penggunaan: resultPeminjaman.maksud_penggunaan,
-      sopir: resultPeminjaman.sopir,
+      sopir: pengemudi.nama,
+      sopir_ktp: pengemudi.ktp,
       tgl_penggunaan_awal: dayjs(resultPeminjaman.tgl_penggunaan_awal).format('DD-MM-YYYY'),
       tgl_penggunaan_akhir: dayjs(resultPeminjaman.tgl_penggunaan_akhir).format('DD-MM-YYYY'),
       tgl_pinjam: dayjs(resultPeminjaman.tgl_pinjam).format('DD MMMM YYYY'),

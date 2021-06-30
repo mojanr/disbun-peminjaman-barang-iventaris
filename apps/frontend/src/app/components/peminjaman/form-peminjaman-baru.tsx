@@ -47,11 +47,17 @@ const FormPeminjamanBaru = () => {
     manual: true,
     throwOnError: true,
   })
+  // request handler pengemudi
+  const reqPengemudiSearch = useRequest(Api.PengemudiApi.search, {
+    manual: true,
+    throwOnError: true,
+  })
   // request handler submit peminjaman
   const reqSubmitPeminjaman = useRequest(Api.PeminjamanApi.peminjaman, {
     manual: true,
     throwOnError: true,
   })
+
 
   // form validation
   const { handleSubmit, control, watch, setValue, formState: { errors } } = useForm({
@@ -158,6 +164,38 @@ const FormPeminjamanBaru = () => {
 
 
       await reqBarangSearch.run(queryString)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // on search field pengemudi select
+  const onSearchFieldPengemudi = async (value: any) => {
+    try {
+      const queryString = RequestQueryBuilder.create({
+        // fields: ["peg_id", "peg_nip", "peg_nama", "peg_nama_lengkap", "jabatan_nama", "peg_foto_url"],
+        or: [
+          {
+            field: 'ktp',
+            operator: '$cont',
+            value: value
+          },
+          {
+            field: 'nama',
+            operator: '$cont',
+            value: value
+          },
+        ]
+        // join: [{ field: "company" }],
+        // sort: [{ field: "id", order: "DESC" }],
+        // page: 1,
+        // limit: 25,
+        // resetCache: true
+        // filter: ;
+      }).query();
+
+
+      await reqPengemudiSearch.run(queryString)
     } catch (error) {
       console.log(error)
     }
@@ -368,8 +406,25 @@ const FormPeminjamanBaru = () => {
 
         {/* sopir jika barang adalah kendaraan  */}
         {fieldWatchBarang && JSON.parse(fieldWatchBarang)['no_polisi'] && (
-          < FormItemComponent
-            label="Nama pengemudi"
+          // < FormItemComponent
+          //   label="Nama pengemudi"
+          //   name="sopir"
+          //   isRequired
+          //   errors={errors}
+          // >
+          //   <Controller
+          //     name="sopir"
+          //     control={control}
+          //     render={({ field }) =>
+          //       <Input
+          //         placeholder="Nama pengemudi"
+          //         {...field}
+          //       />
+          //     }
+          //   />
+          // </FormItemComponent>
+          <FormItemComponent
+            label="Pengemudi"
             name="sopir"
             isRequired
             errors={errors}
@@ -378,9 +433,25 @@ const FormPeminjamanBaru = () => {
               name="sopir"
               control={control}
               render={({ field }) =>
-                <Input
-                  // prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Nama pengemudi"
+                <Select
+                  showSearch
+                  filterOption={false}
+                  placeholder="Pilih Pengemudi"
+                  onSearch={onSearchFieldPengemudi}
+                  options={reqPengemudiSearch.data?.data?.message.map((item: any, index: any) => ({
+                    label: (
+                      <Fragment>
+                        <Typography.Text strong> {item.nama} </Typography.Text>
+                        <br></br>
+                        <Typography.Text> KTP. {item.ktp} </Typography.Text>
+                        {/* <br></br>
+                        <Typography.Text className="wrap-label"> {item.jabatan_nama} </Typography.Text> */}
+                      </Fragment>
+                    ),
+                    value: JSON.stringify(item),
+                    key: item.ktp
+                  }))}
+                  notFoundContent={reqPengemudiSearch.loading ? <Spin size="small" /> : null}
                   {...field}
                 />
               }

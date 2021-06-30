@@ -8,6 +8,7 @@ import User from "../pages/user";
 import Role from "../pages/role";
 import Pegawai from "../pages/pegawai";
 import NotFound404 from "../pages/404";
+import Pengemudi from "../pages/pengemudi";
 
 export const ROUTE: RouteConfig = {
   component: AppRoot,
@@ -42,10 +43,15 @@ export const ROUTE: RouteConfig = {
           exact: true,
           component: Main
         },
+        // {
+        //   path: '/dashboard/user',
+        //   exact: true,
+        //   component: User
+        // },
         {
-          path: '/dashboard/user',
+          path: '/dashboard/pengemudi',
           exact: true,
-          component: User
+          component: Pengemudi
         },
         {
           path: '/dashboard/role',

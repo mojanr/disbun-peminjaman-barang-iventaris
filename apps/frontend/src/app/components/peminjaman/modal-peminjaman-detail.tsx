@@ -101,6 +101,19 @@ const BarangComponent: FC<{ data: any }> = ({ data }) => {
   )
 }
 
+// const pengemudi component
+const PengemudiComponent: FC<{ data: any }> = ({ data }) => {
+  const pengemudi = JSON.parse(data)
+
+  return (
+    <Fragment>
+      <Typography.Text> {pengemudi.nama} </Typography.Text>
+      {/* <br></br>
+                      <Typography.Text> {item.peg_nip} </Typography.Text> */}
+    </Fragment>
+  )
+}
+
 // const timeline component
 const TimelineComponent: FC<{ data: any }> = ({ data }) => {
   // const barang = JSON.parse(data)
@@ -198,8 +211,9 @@ const ModalPeminjamanDetail = () => {
             {reqBarangDetail.data?.data.message.maksud_penggunaan}
           </Descriptions.Item>
           {reqBarangDetail.data?.data.message.sopir && (
-            <Descriptions.Item label="Sopir">
-              {reqBarangDetail.data?.data.message.sopir}
+            <Descriptions.Item label="Pengemudi">
+              {/* {reqBarangDetail.data?.data.message.sopir} */}
+              <PengemudiComponent data={reqBarangDetail.data?.data.message.sopir} />
             </Descriptions.Item>
           )}
           <Descriptions.Item label="BAST">
@@ -214,7 +228,7 @@ const ModalPeminjamanDetail = () => {
             }
           </Descriptions.Item>
           <Descriptions.Item label="Status Peminjaman">
-            {reqBarangDetail.data?.data.message.status_peminjaman == 1 ? <Badge status='warning' text="Dipinjam" /> : <Badge status='success' text="Dikembalikan" />}
+            {reqBarangDetail.data?.data.message.status_peminjaman == 1 ? <Badge status='warning' text="Dipinjam" /> : <Fragment> <Badge status='success' text="Dikembalikan" /> {reqBarangDetail.data?.data.message.tgl_kembali} </Fragment>}
           </Descriptions.Item>
           {/* <Descriptions.Item label="History">
             <TimelineComponent data={reqBarangDetail.data?.data.message} />

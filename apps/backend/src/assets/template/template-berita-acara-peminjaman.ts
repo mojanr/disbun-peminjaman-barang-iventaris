@@ -47,6 +47,7 @@ export interface TemplateBeritaAcaraPeminjaman {
 
   maksud_penggunaan: string
   sopir?: string
+  sopir_ktp?: string
   tgl_penggunaan_awal: string
   tgl_penggunaan_akhir: string
   tgl_pinjam: string

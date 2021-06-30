@@ -71,7 +71,7 @@ const SidebarMenu = () => {
         </div>
         {/* <StyledMenuItem key="1" icon={<HomeOutlined />}><Link to="/dashboard/main">Dashboard</Link></StyledMenuItem> */}
         {/* <StyledMenuItem key="2" icon={<UserOutlined />}><Link to="/dashboard/user">User</Link></StyledMenuItem> */}
-        {/* <StyledMenuItem key="3" icon={<TeamOutlined />}><Link to="/dashboard/user">Pengemudi</Link></StyledMenuItem> */}
+        {/* <StyledMenuItem key="3" icon={<TeamOutlined />}><Link to="/dashboard/pengemudi">Pengemudi</Link></StyledMenuItem> */}
         {/* <StyledMenuItem key="3" icon={<ShareAltOutlined />}><Link to="/dashboard/role">Role</Link></StyledMenuItem> */}
         <StyledMenuItem key="4" icon={<TeamOutlined />}><Link to="/dashboard/pegawai">Pegawai</Link></StyledMenuItem>
         {/* <StyledSubMenu key="sub5" icon={<DropboxOutlined />} title="Barang Inventaris">

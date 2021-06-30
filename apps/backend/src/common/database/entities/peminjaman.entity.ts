@@ -68,7 +68,7 @@ export class Peminjaman {
   // @Expose({ toPlainOnly: true })
   maksud_penggunaan: string
 
-  @Column({ type: 'varchar', name: 'sopir', nullable: true, default: null })
+  @Column({ type: 'text', name: 'sopir', nullable: true, default: null })
   // @Expose({ toPlainOnly: true })
   sopir: string
 
