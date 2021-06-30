@@ -7,6 +7,7 @@ import Main from "../pages/main";
 import User from "../pages/user";
 import Role from "../pages/role";
 import Pegawai from "../pages/pegawai";
+import NotFound404 from "../pages/404";
 
 export const ROUTE: RouteConfig = {
   component: AppRoot,
@@ -68,10 +69,10 @@ export const ROUTE: RouteConfig = {
       exact: true,
       component: Login
     },
-    // {
-    //   path: '*',
-    //   // exact: true,
-    //   component: DefaultPage
-    // },
+    {
+      path: '*',
+      // exact: true,
+      component: NotFound404
+    },
   ]
 }

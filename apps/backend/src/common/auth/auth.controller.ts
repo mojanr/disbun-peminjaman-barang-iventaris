@@ -32,7 +32,9 @@ export class AuthController {
     // check if user is has access
     const authUser = await this.authService.getRepo().findOne(user.pegawai.peg_nip)
     if (!authUser) throw new UnauthorizedException()
-    if (authUser.role !== 'user') throw new UnauthorizedException()
+    if (!['user', 'pengelola_barang'].includes(authUser.role)) {
+      throw new UnauthorizedException()
+    }
 
 
     // console.log(user)

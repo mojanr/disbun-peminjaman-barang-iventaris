@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import { useDrawerProfile } from './drawer-profile'
 import { useHistory } from 'react-router-dom';
+import { useLocalStorageState } from 'ahooks';
 
 
 const FixedSidebar = styled.div`
@@ -46,6 +47,7 @@ const FixedSidebar = styled.div`
 
 const SidebarFixed = () => {
 
+  const [token, setToken] = useLocalStorageState('token')
   const history = useHistory()
 
   const drawerProfile = useDrawerProfile()
@@ -53,7 +55,11 @@ const SidebarFixed = () => {
   const openDrawerProfile = () => drawerProfile.open()
 
   // logout button
-  const logout = () => history.push('/')
+  const logout = () => {
+    setToken(undefined)
+    history.push('/')
+
+  }
 
   return (
     <FixedSidebar>

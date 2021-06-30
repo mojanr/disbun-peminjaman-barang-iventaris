@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, Typography } from 'antd';
 import styled from 'styled-components';
 import FormLogin from '../components/login/form-login';
 import { HeaderComponent } from '../components/common'
 import logoDisbun from '../../assets/LOGO DISBUN 2.png'
+import { useLocalStorageState } from 'ahooks';
+import { useHistory } from 'react-router-dom';
 
 const StyledPage = styled.div`
   .page {
@@ -29,6 +31,22 @@ const StyledCard = styled(Card)`
 `
 
 const Login = () => {
+
+  const [token, setToken] = useLocalStorageState('token')
+  const history = useHistory()
+
+  // check token 
+  useEffect(() => {
+    if (token) {
+      // setToken(undefined)
+      history.push('/dashboard/peminjaman')
+    }
+
+    return  () => {
+      
+    }
+  }, [])
+
   return (
     <StyledPage>
       {/* <StyledTitle> App </StyledTitle> */}

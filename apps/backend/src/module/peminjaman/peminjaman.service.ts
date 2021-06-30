@@ -9,6 +9,7 @@ import { DocumentExport } from '../../common/util/document-exporter';
 import { PegawaiService } from '../pegawai/pegawai.service';
 import { UserService } from '../user/user.service';
 import * as dayjs from 'dayjs'
+import "dayjs/locale/id"
 
 @Injectable()
 export class PeminjamanService extends TypeOrmCrudService<Peminjaman> {
@@ -84,7 +85,7 @@ export class PeminjamanService extends TypeOrmCrudService<Peminjaman> {
       sopir: resultPeminjaman.sopir,
       tgl_penggunaan_awal: dayjs(resultPeminjaman.tgl_penggunaan_awal).format('DD-MM-YYYY'),
       tgl_penggunaan_akhir: dayjs(resultPeminjaman.tgl_penggunaan_akhir).format('DD-MM-YYYY'),
-      tgl_pinjam: dayjs(resultPeminjaman.tgl_pinjam).format('DD-MMMM-YYYY'),
+      tgl_pinjam: dayjs(resultPeminjaman.tgl_pinjam).format('DD MMMM YYYY'),
       tgl_kembali: dayjs(resultPeminjaman.tgl_kembali).format('DD-MM-YYYY'),
       bast: resultPeminjaman.bast,
       status_peminjaman: resultPeminjaman.status_peminjaman,

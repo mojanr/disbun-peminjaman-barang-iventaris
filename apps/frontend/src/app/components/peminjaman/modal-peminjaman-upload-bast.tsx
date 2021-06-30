@@ -57,6 +57,7 @@ const ModalPeminjamanUploadBast = () => {
       key="modal-peminjaman-upload-bast"
       footer={null}
       width={620}
+      destroyOnClose
     >
       <HeaderComponent title="Upload Berita Acara Peminjaman" />
       <FormPeminjamanUploadBast />
