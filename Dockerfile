@@ -1,5 +1,6 @@
 FROM node:14.16-alpine
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    POST=3000
 WORKDIR /usr/src/app
 # COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 COPY ["package.json", "./"]
