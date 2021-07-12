@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_02pgp3w" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="8.7.1">
+  <bpmn:collaboration id="Collaboration_0bnnmwl">
+    <bpmn:participant id="Participant_0ng5aas" name="Pengelola Barang" processRef="Process_0x52m8r" />
+    <bpmn:participant id="Participant_0dekp3d" name="Peminjam" processRef="Process_07s33fi" />
+    <bpmn:messageFlow id="Flow_0qbrrtm" sourceRef="Activity_1wusplg" targetRef="Activity_1kemirl" />
+    <bpmn:messageFlow id="Flow_1ufzm0v" sourceRef="Activity_0g1njqd" targetRef="Activity_1rwjeb2" />
+    <bpmn:messageFlow id="Flow_02e1ef4" sourceRef="Activity_0ll9edb" targetRef="Activity_0tw3ts8" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_0x52m8r" isExecutable="false">
+    <bpmn:task id="Activity_1kemirl" name="Menginput peminjaman pada aplikasi">
+      <bpmn:outgoing>Flow_0iwhvn9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0g1njqd" name="Menyiapkan barang dan Mencetak berita acara">
+      <bpmn:incoming>Flow_0iwhvn9</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="Activity_0tw3ts8" name="Menerima barang yang dikembalikan dan mengubah status peminjaman">
+      <bpmn:outgoing>Flow_0z7rejy</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="Event_1m64vq8">
+      <bpmn:incoming>Flow_0z7rejy</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0iwhvn9" sourceRef="Activity_1kemirl" targetRef="Activity_0g1njqd" />
+    <bpmn:sequenceFlow id="Flow_0z7rejy" sourceRef="Activity_0tw3ts8" targetRef="Event_1m64vq8" />
+  </bpmn:process>
+  <bpmn:process id="Process_07s33fi" isExecutable="false">
+    <bpmn:startEvent id="Event_0ngp0hs">
+      <bpmn:outgoing>Flow_1wdbp8f</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_1wusplg" name="Melakukan Permintaan peminjaman">
+      <bpmn:incoming>Flow_1wdbp8f</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:task id="Activity_1rwjeb2" name="Menerima barang dan menandatangai berita acara">
+      <bpmn:outgoing>Flow_1wawopj</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0ll9edb" name="Melakukan pengembalian barang">
+      <bpmn:incoming>Flow_1wawopj</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1wdbp8f" sourceRef="Event_0ngp0hs" targetRef="Activity_1wusplg" />
+    <bpmn:sequenceFlow id="Flow_1wawopj" sourceRef="Activity_1rwjeb2" targetRef="Activity_0ll9edb" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0bnnmwl">
+      <bpmndi:BPMNShape id="Participant_0ng5aas_di" bpmnElement="Participant_0ng5aas" isHorizontal="true">
+        <dc:Bounds x="156" y="61" width="894" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0iwhvn9_di" bpmnElement="Flow_0iwhvn9">
+        <di:waypoint x="400" y="200" />
+        <di:waypoint x="490" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z7rejy_di" bpmnElement="Flow_0z7rejy">
+        <di:waypoint x="790" y="200" />
+        <di:waypoint x="942" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1kemirl_di" bpmnElement="Activity_1kemirl">
+        <dc:Bounds x="300" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0g1njqd_di" bpmnElement="Activity_0g1njqd">
+        <dc:Bounds x="490" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tw3ts8_di" bpmnElement="Activity_0tw3ts8">
+        <dc:Bounds x="690" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1m64vq8_di" bpmnElement="Event_1m64vq8">
+        <dc:Bounds x="942" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0dekp3d_di" bpmnElement="Participant_0dekp3d" isHorizontal="true">
+        <dc:Bounds x="156" y="310" width="894" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1wdbp8f_di" bpmnElement="Flow_1wdbp8f">
+        <di:waypoint x="242" y="439" />
+        <di:waypoint x="300" y="439" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wawopj_di" bpmnElement="Flow_1wawopj">
+        <di:waypoint x="590" y="439" />
+        <di:waypoint x="690" y="439" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0ngp0hs_di" bpmnElement="Event_0ngp0hs">
+        <dc:Bounds x="206" y="421" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wusplg_di" bpmnElement="Activity_1wusplg">
+        <dc:Bounds x="300" y="399" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rwjeb2_di" bpmnElement="Activity_1rwjeb2">
+        <dc:Bounds x="490" y="399" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ll9edb_di" bpmnElement="Activity_0ll9edb">
+        <dc:Bounds x="690" y="399" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0qbrrtm_di" bpmnElement="Flow_0qbrrtm">
+        <di:waypoint x="350" y="399" />
+        <di:waypoint x="350" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ufzm0v_di" bpmnElement="Flow_1ufzm0v">
+        <di:waypoint x="540" y="240" />
+        <di:waypoint x="540" y="399" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02e1ef4_di" bpmnElement="Flow_02e1ef4">
+        <di:waypoint x="740" y="399" />
+        <di:waypoint x="740" y="240" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
